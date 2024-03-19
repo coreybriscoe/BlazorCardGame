@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{72740F63-1E06-4ECA-BFC8-D9372D2E3279}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCardGame.WebUI", "src\BlazorCardGame.WebUI\BlazorCardGame.WebUI.csproj", "{6E6FEF88-7320-47CF-8E0F-926DD6B04D98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCardGame.WebAPI", "src\BlazorCardGame.WebAPI\BlazorCardGame.WebAPI.csproj", "{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3B23A34-4F11-4061-BB2A-57D1AA4A886A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B23A34-4F11-4061-BB2A-57D1AA4A886A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B23A34-4F11-4061-BB2A-57D1AA4A886A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B23A34-4F11-4061-BB2A-57D1AA4A886A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E6FEF88-7320-47CF-8E0F-926DD6B04D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E6FEF88-7320-47CF-8E0F-926DD6B04D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0EE52B81-5F54-4EA2-82BA-9CA5F27B4FA7}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6E6FEF88-7320-47CF-8E0F-926DD6B04D98} = {72740F63-1E06-4ECA-BFC8-D9372D2E3279}
+		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC} = {72740F63-1E06-4ECA-BFC8-D9372D2E3279}
+	EndGlobalSection
+EndGlobal

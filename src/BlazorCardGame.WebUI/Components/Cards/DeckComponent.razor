@@ -1,0 +1,11 @@
+<div class="deck" onclick=@OnClick>
+
+</div>
+
+@code {
+    [Parameter]
+    public bool DrawAllowed { get; set; } = false;
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }   
+}

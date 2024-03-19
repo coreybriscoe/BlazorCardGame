@@ -1,0 +1,5 @@
+.pool-with-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

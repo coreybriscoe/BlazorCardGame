@@ -1,0 +1,11 @@
+<div>
+    @CurrentCount / @TotalCount
+</div>
+
+@code {
+    [Parameter]
+    public int CurrentCount { get; set; } = 0;
+
+    [Parameter]
+    public int TotalCount { get; set; } = 0;
+}

@@ -1,0 +1,31 @@
+<div class="flex">
+    @foreach (ICard card in cards)
+    {
+        <CardComponent Card=@card CardClicked=@CardClicked />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public List<ICard> cards { get; set; } = new List<ICard>();
+
+    [Parameter]
+    public bool cardsSelectable { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<List<BasePlayingCard>> OnCardsSelected { get; set; }
+
+    private int maxSelectableCards = 5;
+
+    private void CardClicked(ICard card)
+    {
+        if (cardsSelectable && card is IPlayingCard && ((IPlayingCard) card).IsSelectable())
+        {
+            if (((IPlayingCard) card).IsSelected() || cards.Count(c => c is IPlayingCard && ((IPlayingCard) c).IsSelected()) < maxSelectableCards)
+            {
+                ((BasePlayingCard) card).ToggleSelect();
+                OnCardsSelected.InvokeAsync(cards.Where(c => c is IPlayingCard && ((IPlayingCard) c).IsSelected()).Select(c => (BasePlayingCard) c).ToList());
+            }
+        }
+    }
+}

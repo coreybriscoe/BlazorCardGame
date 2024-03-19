@@ -1,0 +1,65 @@
+﻿@page "/cardgame"
+@rendermode InteractiveServer
+@using BlazorCardGame.WebUI.Components;
+@using BlazorCardGame.WebUI.Components.Cards;
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Card Game</h1>
+<h4>@handCategory</h4>
+
+<h3>Your Hand:</h3>
+<PoolWithCounter CurrentCount=@hand.Count() TotalCount=@handLimit>
+    <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
+</PoolWithCounter>
+
+<h3>The Deck:</h3>
+<PoolWithCounter CurrentCount=@deck.Count() TotalCount=@deck.DeckSize()>
+    <DeckComponent DrawAllowed=true OnClick=@DeckClicked />
+</PoolWithCounter>
+
+@code {
+    private int handLimit = 8;
+    private void DeckClicked()
+    {
+        if (deck.Count() < 1 || hand.Count() >= handLimit) return;
+        ICard card = deck.Draw();
+        hand.Add((PlayingCard) card);
+    }
+
+    List<BasePlayingCard> hand = new List<BasePlayingCard>
+    {
+        @* new PlayingCard(1, '♦', isFaceUp: true, isSelectable: true), *@
+    };
+
+    static Deck deck;
+
+    protected override void OnInitialized()
+    {
+        char[] suits = { '♦', '♣', '♥', '♠' };
+        List<ICard> deckCards = new List<ICard>();
+        for (int i = 1; i < 14; i++)
+        {
+            string rankString = i switch
+            {
+                1 => "A",
+                11 => "J",
+                12 => "Q",
+                13 => "K",
+                _ => i.ToString()
+            };
+            for (int j = 0; j < 4; j++)
+            {
+                deckCards.Add(new PlayingCard(i, suits[j], rankString: rankString, isFaceUp: true, isSelectable: true));
+            }
+        }
+        deck = new Deck(deckCards);
+        deck.Shuffle();
+    }
+
+    private string handCategory = "?";
+    private void OnHandCardsSelected(List<BasePlayingCard> handCards)
+    {
+        handCategory = PokerLogic.GetHandCategoryNameForCards(handCards.ToList<IPlayingCard>());
+    }
+}

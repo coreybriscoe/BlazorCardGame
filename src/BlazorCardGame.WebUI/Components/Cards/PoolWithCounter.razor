@@ -1,0 +1,17 @@
+@using BlazorCardGame.WebUI.Components.GameInterface;
+
+<div class="pool-with-counter">
+    @ChildContent
+    <CounterComponent CurrentCount=@CurrentCount TotalCount=@TotalCount />
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public int CurrentCount { get; set; } = 0;
+
+    [Parameter]
+    public int TotalCount { get; set; } = 0;
+}
