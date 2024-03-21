@@ -3,21 +3,57 @@
 @using BlazorCardGame.WebUI.Components;
 @using BlazorCardGame.WebUI.Components.Cards;
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Card Game</PageTitle>
 
-<h1>Card Game</h1>
-<h4>@handCategory</h4>
+<div id="cardgame">
+    <div id="info-area">
+        <div id="progress-cell" class="flex-row darkgold-bg">
+            <div class="flex-1 cell">
+                Ante <span class="big-number gold">2</span>/8
+            </div>
+            <div class="flex-3"><span class="big-number bold">Big Blind</span></div>
+            <div class="flex-1 cell">Round <span class="big-number gold">4</span></div>
+        </div>
+        <div id="challenge-cell" class="flex-row goal cell darkgold-bg">
+            <div class="medallion flex-1">BIG BLIND</div>
+            <div class="flex-3">Score at least 1200 to earn $$$$</div>
+        </div>
+        <div id="score-cell" class="score cell">
+            <div>Score: 0</div>
+        </div>
+        <div id="calculation-cell" class="calculation cell">
+            Two Pair lvl. 1
+            <div>
+                <div class="colorbox blue-bg">40</div>
+                <div class="colorbox red-bg">2</div>
+            </div>
+        </div>
+        <div id="inventory-cell" class="inventory cell">
+            <div class="colorbox gold-bg">$22</div>
+            <div class="colorbox blue-bg">Hands 3</div>
+            <div class="colorbox red-bg">Discards 2</div>
+        </div>
+        <div id="help-cell">
+            <div>R</div>
+            <div>?</div>
+            <div>O</div>
+        </div>
 
-<h3>Your Hand:</h3>
-<PoolWithCounter CurrentCount=@hand.Count() TotalCount=@handLimit>
-    <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
-</PoolWithCounter>
+    </div>
+    <div id="play-area">
+        <h4>@handCategory</h4>
+        <h3>Your Hand:</h3>
+        <PoolWithCounter CurrentCount=@hand.Count() TotalCount=@handLimit>
+            <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
+        </PoolWithCounter>
 
-<h3>The Deck:</h3>
-<PoolWithCounter CurrentCount=@deck.Count() TotalCount=@deck.DeckSize()>
-    <DeckComponent DrawAllowed=true OnClick=@DeckClicked />
-</PoolWithCounter>
+        <h3>The Deck:</h3>
+        <PoolWithCounter CurrentCount=@deck.Count() TotalCount=@deck.DeckSize()>
+            <DeckComponent DrawAllowed=true OnClick=@DeckClicked />
+        </PoolWithCounter>
 
+    </div>
+</div>
 @code {
     private int handLimit = 8;
     private void DeckClicked()

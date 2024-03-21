@@ -1,0 +1,69 @@
+#cardgame {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+    #cardgame {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+#info-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: darkslategray;
+    color: white;
+    flex-grow: 1;
+    padding: 4px;
+}
+
+#play-area {
+    background-color: green;
+    flex-grow: 2;
+}
+
+#progress-cell {
+    margin: 0 0 2px 0;
+    border: 3px solid darkgoldenrod;
+    border-radius: 5px;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+}
+
+#progress-cell .big-number {
+    font-size: 24px;
+}
+
+#challenge-cell {
+    margin: 0 0 2px 0;
+    border: 3px solid darkgoldenrod;
+    border-radius: 5px;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+}
+
+.cell {
+    background-color: darkgray;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.colorbox {
+    border-width: 7px;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.medallion {
+    border-width: 7px;
+    border-style: solid;
+    border-radius: 50%;
+}
