@@ -33,7 +33,7 @@
             <div class="flex-1"></div>
         </div>
         <div id="calculation-cell" class="calculation cell flex-column">
-            <div id="hand-category">Two Pair <span id="hand-category-level">lvl. 1</span></div>
+            <div id="hand-category">@handCategory <span id="hand-category-level">lvl. 1</span></div>
             <div class="flex-row w-half">
                 <div class="colorbox blue-bg flex-3 bold">40</div>
                 <div id="multiplier-x" class="flex-1">x</div>
@@ -63,7 +63,6 @@
 
     </div>
     <div id="play-area">
-        <h4>@handCategory</h4>
         <h3>Your Hand:</h3>
         <PoolWithCounter CurrentCount=@hand.Count() TotalCount=@handLimit>
             <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
@@ -113,6 +112,13 @@
         }
         deck = new Deck(deckCards);
         deck.Shuffle();
+
+        // Draw cards
+        for (int i = 0; i < handLimit; i++)
+        {
+            ICard card = deck.Draw();
+            hand.Add((PlayingCard) card);
+        }
     }
 
     private string handCategory = "?";
