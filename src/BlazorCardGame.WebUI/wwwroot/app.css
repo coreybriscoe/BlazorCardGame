@@ -50,9 +50,29 @@ h1:focus {
     border-color: #929292;
 }
 
+.w-full {
+    width: 100%;
+}
+
+.w-half {
+    width: 50%;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .flex-1 {
@@ -67,13 +87,38 @@ h1:focus {
     flex: 3;
 }
 
+.text-center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* Colors */
+.blue {
+    color: blue;
+}
+.blue-bg {
+    background-color: blue;
+    border-color: darkblue;
+}
+
+.blue-border {
+    border: 1px solid blue;
+}
+
+.gold {
+    color: gold;
+}
+
 .gold-bg {
     background-color: gold;
     border-color: goldenrod;
 }
 
-.gold {
-    color: gold;
+.gold-border {
+    border: 1px solid gold;
 }
 
 .darkgold-bg {
@@ -81,16 +126,30 @@ h1:focus {
     border-color: darkgoldenrod;
 }
 
+.lime-bg {
+    background-color: lime;
+    border-color: limegreen;
+}
+
+.orange-bg {
+    background-color: orange;
+    border-color: darkorange;
+}
+
+.pink-bg {
+    background-color: pink;
+    border-color: hotpink;
+}
+
+.red {
+    color: red;
+}
+
 .red-bg {
     background-color: red;
     border-color: darkred;
 }
 
-.blue-bg {
-    background-color: blue;
-    border-color: darkblue;
-}
-
-.bold {
-    font-weight: bold;
+.red-border {
+    border: 1px solid red;
 }

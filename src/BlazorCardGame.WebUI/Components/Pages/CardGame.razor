@@ -15,28 +15,50 @@
             <div class="flex-1 cell">Round <span class="big-number gold">4</span></div>
         </div>
         <div id="challenge-cell" class="flex-row goal cell darkgold-bg">
-            <div class="medallion flex-1">BIG BLIND</div>
-            <div class="flex-3">Score at least 1200 to earn $$$$</div>
-        </div>
-        <div id="score-cell" class="score cell">
-            <div>Score: 0</div>
-        </div>
-        <div id="calculation-cell" class="calculation cell">
-            Two Pair lvl. 1
-            <div>
-                <div class="colorbox blue-bg">40</div>
-                <div class="colorbox red-bg">2</div>
+            <div class="medallion-container flex-1">
+                <div class="medallion flex-center">
+                    <div>BIG</div>
+                    <div>BLIND</div>
+                </div>
+            </div>
+            <div class="cell red flex-2 bold big-number">1200</div>
+            <div class="flex-1 flex-column">
+                <div>score to win</div>
+                <div>$$$$</div>
             </div>
         </div>
-        <div id="inventory-cell" class="inventory cell">
-            <div class="colorbox gold-bg">$22</div>
-            <div class="colorbox blue-bg">Hands 3</div>
-            <div class="colorbox red-bg">Discards 2</div>
+        <div id="score-cell" class="cell flex-row">
+            <div class="flex-1 flex-center">Round score</div>
+            <div class="cell flex-2 bold big-number">0</div>
+            <div class="flex-1"></div>
         </div>
-        <div id="help-cell">
-            <div>R</div>
-            <div>?</div>
-            <div>O</div>
+        <div id="calculation-cell" class="calculation cell flex-column">
+            <div id="hand-category">Two Pair <span id="hand-category-level">lvl. 1</span></div>
+            <div class="flex-row w-half">
+                <div class="colorbox blue-bg flex-3 bold">40</div>
+                <div id="multiplier-x" class="flex-1">x</div>
+                <div class="colorbox red-bg flex-3 bold">2</div>
+            </div>
+        </div>
+        <div id="inventory-cell" class="inventory cell flex-row">
+            <div class="colorbox-thin gold gold-border flex-center flex-1 bold big-number">$22</div>
+            <div class="colorbox-thin blue-border flex-row flex-1">
+                <div class="flex-center"><span class="bold blue big-number">3</span> Hands</div>
+            </div>
+            <div class="colorbox-thin red-border flex-column flex-1">
+                <div class="flex-center"><span class="bold red big-number">2</span> Discards</div>
+            </div>
+        </div>
+        <div id="help-cell" class="cell flex-row">
+            <div class="flex-center flex-1">
+                <div class="button-small lime-bg flex-center">R</div>
+            </div>
+            <div class="flex-center flex-1">
+                <div class="button-small pink-bg flex-center">?</div>
+            </div>
+            <div class="flex-center flex-1">
+                <div class="button-small orange-bg flex-center">O</div>
+            </div>
         </div>
 
     </div>
