@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @rendermode InteractiveServer
 @using BlazorCardGame.WebUI.Components;
 @using BlazorCardGame.WebUI.Components.Cards;
@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        <PoolWithCounter CurrentCount=@hand.Count() TotalCount=@handLimit RaisedStyle=true>
+        <PoolWithCounter class="raised" CurrentCount=@hand.Count() TotalCount=@handLimit>
             <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
         </PoolWithCounter>
 

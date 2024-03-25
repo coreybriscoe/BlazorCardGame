@@ -1,8 +1,8 @@
 @using BlazorCardGame.WebUI.Components.GameInterface;
 
-<div class="pool-with-counter">
+<div class=@_class()>
     @ChildContent
-    <CounterComponent CurrentCount=@CurrentCount TotalCount=@TotalCount RaisedStyle=@RaisedStyle />
+    <CounterComponent CurrentCount=@CurrentCount TotalCount=@TotalCount RaisedStyle=@(Class.Contains("raised")) />
 </div>
 
 @code {
@@ -16,5 +16,10 @@
     public int TotalCount { get; set; } = 0;
 
     [Parameter]
-    public bool RaisedStyle { get; set; } = false;
+    public string Class { get; set; } = "";
+
+    private string _class() 
+    {
+        return $"{Class} pool-with-counter";
+    }
 }
