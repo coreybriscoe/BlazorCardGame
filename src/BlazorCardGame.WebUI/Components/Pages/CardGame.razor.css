@@ -104,6 +104,11 @@
     padding: 5px 0 5px 0;
 }
 
+#play-discard-row {
+    display: flex;
+    justify-content: space-around;
+}
+
 .cell {
     background-color: darkgray;
     border: 2px solid gray;
@@ -120,6 +125,7 @@
     text-align: center;
     margin: 0px 2px 0px 2px;
     padding: 0 9px 0 9px;
+    align-self: center;
 }
 
 .colorbox-thin {

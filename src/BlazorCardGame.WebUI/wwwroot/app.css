@@ -54,6 +54,10 @@ h1:focus {
     width: 100%;
 }
 
+.w-3-4 {
+    width: 75%;
+}
+
 .w-half {
     width: 50%;
 }
