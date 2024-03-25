@@ -99,9 +99,16 @@ h1:focus {
 .blue {
     color: blue;
 }
+
 .blue-bg {
     background-color: blue;
     border-color: darkblue;
+    color: white;
+}
+
+.blue-borderless-bg {
+    background-color: blue;
+    border-color: blue;
 }
 
 .blue-border {
@@ -148,6 +155,12 @@ h1:focus {
 .red-bg {
     background-color: red;
     border-color: darkred;
+    color: white;
+}
+
+.red-borderless-bg {
+    background-color: red;
+    border-color: red;
 }
 
 .red-border {
