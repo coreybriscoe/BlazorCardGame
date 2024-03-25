@@ -63,8 +63,7 @@
 
     </div>
     <div id="play-area">
-        <h3>Your Hand:</h3>
-        <PoolWithCounter CurrentCount=@hand.Count() TotalCount=@handLimit>
+        <PoolWithCounter CurrentCount=@hand.Count() TotalCount=@handLimit RaisedStyle=true>
             <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
         </PoolWithCounter>
 

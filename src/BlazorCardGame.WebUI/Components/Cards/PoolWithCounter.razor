@@ -2,7 +2,7 @@
 
 <div class="pool-with-counter">
     @ChildContent
-    <CounterComponent CurrentCount=@CurrentCount TotalCount=@TotalCount />
+    <CounterComponent CurrentCount=@CurrentCount TotalCount=@TotalCount RaisedStyle=@RaisedStyle />
 </div>
 
 @code {
@@ -14,4 +14,7 @@
 
     [Parameter]
     public int TotalCount { get; set; } = 0;
+
+    [Parameter]
+    public bool RaisedStyle { get; set; } = false;
 }

@@ -1,7 +1,7 @@
 /* CSS for a playing card */
 .card {
-    width: 100px;
-    height: 150px;
+    width: 60px;
+    height: 90px;
     border: 1px solid black;
     border-radius: 5px;
     background-color: white;
@@ -9,16 +9,55 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
+    font-size: 20pt;
     font-weight: bold;
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     margin-right: 2px;
+}
+
+.card-value {
+    position: absolute;
+    top: 0px;
+    left: 5px;
+}
+
+.card-suit {
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+}
+
+.selected {
+    transform: translate(0, -5px);
+    transition: all 0.3s;
+    background-color: lightpink;
 }
 
 .card:hover {
     transform: scale(1.1);
     z-index: 100;
     transition: all 0.3s;
+}
+
+@media (min-width: 1024px) {
+    .card {
+        width: 100px;
+        height: 150px;
+        font-size: 24pt;
+    }
+
+    .card-value {
+        top: 5px;
+    }
+
+    .card-suit {
+        bottom: 5px;
+    }
+
+    .selected {
+        transform: translate(0, -10px);
+    
+    }
 }
 
 .red {
@@ -29,26 +68,7 @@
     color: black;
 }
 
-.card-value {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-}
-
-.card-suit {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-}
-
 .card-back {
     background-color: blue;
     color: white;
-}
-
-.selected {
-    /* move up 5 px */
-    transform: translate(0, -10px);
-    transition: all 0.3s;
-    background-color: lightpink;
 }
