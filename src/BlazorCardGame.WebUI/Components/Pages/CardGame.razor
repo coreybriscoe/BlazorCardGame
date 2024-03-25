@@ -1,4 +1,4 @@
-@page "/"
+﻿@page "/"
 @rendermode InteractiveServer
 @using BlazorCardGame.WebUI.Components;
 @using BlazorCardGame.WebUI.Components.Cards;
@@ -63,6 +63,14 @@
 
     </div>
     <div id="play-area">
+        <div class="flex-row flex-center">
+            <PoolWithCounter class="raised flex-3" CurrentCount=0 TotalCount=5>
+                <CardPoolComponent Cards=@(new List<PlayingCard>().Cast<ICard>().ToList()) cardsSelectable=false />
+            </PoolWithCounter>
+            <PoolWithCounter class="raised flex-2" CurrentCount=0 TotalCount=2>
+                <CardPoolComponent Cards=@(new List<PlayingCard>().Cast<ICard>().ToList()) cardsSelectable=false />
+            </PoolWithCounter>
+        </div>
         <div id="play-discard-row">
             <div class="flex-row flex-center w-3-4">
                 @if (handCategory != "?") {
