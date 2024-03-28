@@ -107,14 +107,12 @@
     flex-direction: column;
     background-color: green;
     flex-grow: 1;
+    justify-content: space-between;
 }
 
 #play-discard-row {
     display: flex;
     justify-content: space-around;
-}
-
-#play-area-bottom {
     margin-top: auto;
 }
 
