@@ -12,7 +12,9 @@ public static class PokerLogic
         FullHouse,
         FourOfAKind,
         StraightFlush,
-        RoyalFlush
+        FiveOfAKind,
+        FlushHouse,
+        FlushFive,
     }
 
     private static readonly Dictionary<HandCategory, string> HandCategoryNames = new()
@@ -27,7 +29,9 @@ public static class PokerLogic
         { HandCategory.FullHouse, "Full House" },
         { HandCategory.FourOfAKind, "Four of a Kind" },
         { HandCategory.StraightFlush, "Straight Flush" },
-        { HandCategory.RoyalFlush, "Royal Flush" }
+        { HandCategory.FiveOfAKind, "Five of a Kind" },
+        { HandCategory.FlushHouse, "Flush House" },
+        { HandCategory.FlushFive, "Flush Five" },
     };
 
     public static string GetHandCategoryNameForCards(List<IPlayingCard> cards)
@@ -54,9 +58,19 @@ public static class PokerLogic
         return IsStraight(cards) && IsFlush(cards);
     }
 
-    public static bool IsRoyalFlush(List<IPlayingCard> cards)
+    public static bool IsFiveOfAKind(List<IPlayingCard> cards)
     {
-        return IsStraightFlush(cards) && cards.Any(c => c.GetRank() == 14);
+        return cards.GroupBy(c => c.GetRank()).Any(g => g.Count() == 5);
+    }
+
+    public static bool IsFlushHouse(List<IPlayingCard> cards)
+    {
+        return IsFlush(cards) && IsFullHouse(cards);
+    }
+
+    public static bool IsFlushFive(List<IPlayingCard> cards)
+    {
+        return IsFlush(cards) && IsFiveOfAKind(cards);
     }
 
     public static bool IsFourOfAKind(List<IPlayingCard> cards)
@@ -95,9 +109,17 @@ public static class PokerLogic
         {
             return HandCategory.NoCategory;
         }
-        if (IsRoyalFlush(cards))
+        if (IsFlushFive(cards))
         {
-            return HandCategory.RoyalFlush;
+            return HandCategory.FlushFive;
+        }
+        if (IsFlushHouse(cards))
+        {
+            return HandCategory.FlushHouse;
+        }
+        if (IsFiveOfAKind(cards))
+        {
+            return HandCategory.FiveOfAKind;
         }
         if (IsStraightFlush(cards))
         {

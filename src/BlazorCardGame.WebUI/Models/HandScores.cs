@@ -14,7 +14,9 @@ public static class HandScores
         { HandCategory.FullHouse, 40 },
         { HandCategory.FourOfAKind, 60 },
         { HandCategory.StraightFlush, 100 },
-        { HandCategory.RoyalFlush, 100 },
+        { HandCategory.FiveOfAKind, 120 },
+        { HandCategory.FlushHouse, 140 },
+        { HandCategory.FlushFive, 160 },
     };
 
     private static readonly Dictionary<HandCategory, int> handBaseMultiplier = new()
@@ -29,6 +31,8 @@ public static class HandScores
         { HandCategory.FullHouse, 4 },
         { HandCategory.FourOfAKind, 7 },
         { HandCategory.StraightFlush, 8 },
-        { HandCategory.RoyalFlush, 8 },
+        { HandCategory.FiveOfAKind, 12 },
+        { HandCategory.FlushHouse, 14 },
+        { HandCategory.FlushFive, 16 },
     };
 }
