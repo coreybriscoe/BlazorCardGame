@@ -1,6 +1,8 @@
+/* Overall layout: SBS on desktop, TTB on mobile */
 #cardgame {
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 @media (min-width: 1024px) {
@@ -10,6 +12,7 @@
     }
 }
 
+/* Info Area styles */
 #info-area {
     display: flex;
     flex-direction: column;
@@ -19,11 +22,6 @@
     color: white;
     flex-grow: 1;
     padding: 4px;
-}
-
-#play-area {
-    background-color: green;
-    flex-grow: 2;
 }
 
 #progress-cell {
@@ -104,9 +102,21 @@
     padding: 5px 0 5px 0;
 }
 
+/* Play Area styles */
+#play-area {
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    flex-grow: 2;
+}
+
 #play-discard-row {
     display: flex;
     justify-content: space-around;
+}
+
+#play-area-bottom {
+    margin-top: auto;
 }
 
 .cell {

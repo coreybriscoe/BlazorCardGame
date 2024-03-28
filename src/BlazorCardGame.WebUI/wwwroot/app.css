@@ -1,5 +1,6 @@
-html, body {
+html, body, .page {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100vh;
 }
 
 a, .btn-link {

@@ -87,12 +87,14 @@
             </div>
         </div>
 
-        <PoolWithCounter class="raised" CurrentCount=@hand.Count() TotalCount=@handLimit>
-            <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
-        </PoolWithCounter>
-
+        <div id="play-area-bottom">
+            <PoolWithCounter class="raised" CurrentCount=@hand.Count() TotalCount=@handLimit>
+                <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
+            </PoolWithCounter>
+        </div>
     </div>
 </div>
+
 @code {
     private int handLimit = 8;
     private void DeckClicked()
