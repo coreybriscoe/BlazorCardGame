@@ -49,6 +49,7 @@
 
 #challenge-cell .big-number {
     font-size: 24pt;
+    text-shadow: 1px 1px 5px rgba(120, 0, 0, 0.75);
 }
 
 #challenge-cell > * {
@@ -57,6 +58,7 @@
 
 #score-cell {
     font-size: 12pt;
+    text-align: center;
 }
 
 #score-cell > * {
@@ -117,11 +119,12 @@
 }
 
 .cell {
-    background-color: darkgray;
-    border: 2px solid gray;
+    background-color: gray;
+    border: 2px solid slategray;
     border-radius: 5px;
     width: 100%;
     margin: 2px 0 2px 0;
+    color: white;
 }
 
 .colorbox {
@@ -163,4 +166,12 @@
     aspect-ratio: 1/1;
     flex-direction: column;
     align-items: center;
+    font-weight: bold;
+    /* shadow */
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.45);
+}
+
+.dollars {
+    font-size: 20pt;
+    color: gold;
 }
