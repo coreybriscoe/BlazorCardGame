@@ -17,7 +17,7 @@ public static class PokerLogic
         FlushFive,
     }
 
-    private static readonly Dictionary<HandCategory, string> HandCategoryNames = new()
+    public static readonly Dictionary<HandCategory, string> HandCategoryNames = new()
     {
         { HandCategory.NoCategory, "?" },
         { HandCategory.HighCard, "High Card" },
@@ -34,7 +34,7 @@ public static class PokerLogic
         { HandCategory.FlushFive, "Flush Five" },
     };
 
-    public static string GetHandCategoryNameForCards(List<IPlayingCard> cards)
+    public static string GetHandCategoryName(List<IPlayingCard> cards)
     {
         HandCategory category = GetHandCategory(cards);
         return HandCategoryNames.GetValueOrDefault(category) ?? "?";

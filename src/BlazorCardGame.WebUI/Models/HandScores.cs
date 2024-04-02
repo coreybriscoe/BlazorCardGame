@@ -2,7 +2,7 @@ using static PokerLogic;
 
 public static class HandScores
 {
-    private static readonly Dictionary<HandCategory, int> handBasePoints = new()
+    public static readonly Dictionary<HandCategory, int> handBasePoints = new()
     {
         { HandCategory.NoCategory, 0 },
         { HandCategory.HighCard, 5 },
@@ -19,7 +19,7 @@ public static class HandScores
         { HandCategory.FlushFive, 160 },
     };
 
-    private static readonly Dictionary<HandCategory, int> handBaseMultiplier = new()
+    public static readonly Dictionary<HandCategory, int> handBaseMultiplier = new()
     {
         { HandCategory.NoCategory, 0 },
         { HandCategory.HighCard, 1 },

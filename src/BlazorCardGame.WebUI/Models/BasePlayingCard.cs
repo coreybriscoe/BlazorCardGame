@@ -17,6 +17,13 @@ public abstract class BasePlayingCard(int rank, char suit, string rankString = "
         return Rank;
     }
 
+    public int GetPoints()
+    {
+        if (Rank < 11) return Rank;
+        if (Rank == 14) return 11;
+        return 10;
+    }
+
     public char GetSuit()
     {
         return Suit;

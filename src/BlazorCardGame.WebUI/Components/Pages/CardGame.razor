@@ -29,24 +29,24 @@
         </div>
         <div id="score-cell" class="cell flex-row">
             <div class="flex-1 flex-center">Round score</div>
-            <div class="flex-2 bold big-number">0</div>
+            <div class="flex-2 bold big-number">@roundScore</div>
             <div class="flex-1"></div>
         </div>
         <div id="calculation-cell" class="calculation cell flex-column">
             <div id="hand-category">@handCategory <span id="hand-category-level">lvl. 1</span></div>
             <div class="flex-row w-half">
-                <div class="colorbox blue-borderless-bg flex-3 bold">40</div>
+                <div class="colorbox blue-borderless-bg flex-3 bold">@handScore</div>
                 <div id="multiplier-x" class="flex-1">x</div>
-                <div class="colorbox red-borderless-bg flex-3 bold">2</div>
+                <div class="colorbox red-borderless-bg flex-3 bold">@handMultiplier</div>
             </div>
         </div>
         <div id="inventory-cell" class="inventory cell flex-row">
             <div class="colorbox-thin gold gold-border flex-center flex-1 bold big-number">$22</div>
             <div class="colorbox-thin blue-border flex-row flex-1">
-                <div class="flex-center"><span class="bold blue big-number">3</span> Hands</div>
+                <div class="flex-center"><span class="bold blue big-number">@roundHandsRemaining</span> Hands</div>
             </div>
             <div class="colorbox-thin red-border flex-column flex-1">
-                <div class="flex-center"><span class="bold red big-number">2</span> Discards</div>
+                <div class="flex-center"><span class="bold red big-number">@roundDiscardsRemaining</span> Discards</div>
             </div>
         </div>
         <div id="help-cell" class="cell flex-row">
@@ -74,8 +74,8 @@
         <div id="play-discard-row">
             <div class="flex-row flex-center w-3-4">
                 @if (handCategory != "?") {
-                    <div class="colorbox blue-bg flex-1">Play</div>
-                    <div class="colorbox red-bg flex-1">Discard</div>
+                    <div class="colorbox blue-bg flex-1" onclick=@PlayHandClicked>Play</div>
+                    <div class="colorbox red-bg flex-1" onclick=@DiscardHandClicked>Discard</div>
                 } else {
                     <div class="flex-2">Select some cards from your hand.</div>
                 }
@@ -115,14 +115,14 @@
     {
         char[] suits = { '♦', '♣', '♥', '♠' };
         List<ICard> deckCards = new List<ICard>();
-        for (int i = 1; i < 14; i++)
+        for (int i = 2; i < 15; i++)
         {
             string rankString = i switch
             {
-                1 => "A",
                 11 => "J",
                 12 => "Q",
                 13 => "K",
+                14 => "A",
                 _ => i.ToString()
             };
             for (int j = 0; j < 4; j++)
@@ -142,8 +142,72 @@
     }
 
     private string handCategory = "?";
+    private int handScore = 0;
+    private int handMultiplier = 0;
+    private int roundHandsRemaining = 3;
     private void OnHandCardsSelected(List<BasePlayingCard> handCards)
     {
-        handCategory = PokerLogic.GetHandCategoryNameForCards(handCards.ToList<IPlayingCard>());
+        PokerLogic.HandCategory selectedCardsCategory = PokerLogic.GetHandCategory(handCards.ToList<IPlayingCard>());
+        handCategory = PokerLogic.HandCategoryNames.GetValueOrDefault(selectedCardsCategory, "?");
+        if (handCategory == "?") {
+            handScore = 0;
+            handMultiplier = 0;
+            return;
+        }
+        // Determine points: sum of scoring cards' value and base category points
+        int points = HandScores.handBasePoints.GetValueOrDefault<PokerLogic.HandCategory, int>(selectedCardsCategory, 0);
+        List<BasePlayingCard> selectedCards = handCards.Where(c => ((IPlayingCard) c).IsSelected()).ToList();
+        // Scoring cards are cards for which their exclusion would change the hand category
+        // unless the hand category is high card, in which case score only the highest card
+        if (selectedCardsCategory != PokerLogic.HandCategory.HighCard)
+        {
+            points += selectedCards.Where(
+                c => selectedCardsCategory != PokerLogic.GetHandCategory(selectedCards.Where(
+                    c2 => !c2.Equals(c)).ToList<IPlayingCard>())
+            ).ToList<BasePlayingCard>().Sum(c => c.GetPoints());
+        }
+        else
+        {
+            points += selectedCards.Max(c => c.GetPoints());
+        }
+        handScore = points;
+        handMultiplier = HandScores.handBaseMultiplier.GetValueOrDefault<PokerLogic.HandCategory, int>(selectedCardsCategory, 0);
+    }
+
+    private int roundScore = 0;
+    private void PlayHandClicked()
+    {
+        roundScore += handScore * handMultiplier;
+        // Replace selected cards
+        List<BasePlayingCard> selectedCards = hand.Where(c => ((IPlayingCard) c).IsSelected()).ToList<BasePlayingCard>();
+        hand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
+        selectedCards.ForEach(c => {
+            c.ToggleSelect();
+            ICard replacementCard = deck.Draw();
+            hand.Add((PlayingCard) replacementCard);
+        });
+        // Update info area values
+        handCategory = "?";
+        handScore = 0;
+        handMultiplier = 0;
+        roundHandsRemaining--;
+    }
+
+    private int roundDiscardsRemaining = 2;
+    private void DiscardHandClicked()
+    {
+        // Replace selected cards
+        List<BasePlayingCard> selectedCards = hand.Where(c => ((IPlayingCard) c).IsSelected()).ToList<BasePlayingCard>();
+        hand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
+        selectedCards.ForEach(c => {
+            c.ToggleSelect();
+            ICard replacementCard = deck.Draw();
+            hand.Add((PlayingCard) replacementCard);
+        });
+        // Update info area values
+        handCategory = "?";
+        handScore = 0;
+        handMultiplier = 0;
+        roundDiscardsRemaining--;
     }
 }
