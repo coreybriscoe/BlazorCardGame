@@ -1,7 +1,5 @@
 ﻿@page "/"
-@rendermode InteractiveServer
-@using BlazorCardGame.WebUI.Components;
-@using BlazorCardGame.WebUI.Components.Cards;
+@using BlazorCardGame.WebUI.Components.PlayArea
 
 <PageTitle>Card Game</PageTitle>
 
@@ -9,10 +7,10 @@
     <div id="info-area">
         <div id="progress-cell" class="flex-row darkgold-bg">
             <div class="flex-1 cell">
-                Ante <span class="big-number gold">2</span>/8
+                Ante <span class="big-number gold">@anteLevel</span>/8
             </div>
             <div class="flex-3"><span class="big-number bold">Big Blind</span></div>
-            <div class="flex-1 cell">Round <span class="big-number gold">4</span></div>
+            <div class="flex-1 cell">Round <span class="big-number gold">@roundLevel</span></div>
         </div>
         <div id="challenge-cell" class="flex-row goal cell darkgold-bg">
             <div class="medallion-container flex-1">
@@ -140,6 +138,10 @@
             hand.Add((PlayingCard) card);
         }
     }
+
+    private int anteLevel = 1;
+    private int roundLevel = 1;
+    private int phaseLevel = 1; // [1, 2, 3] for small, big, and boss blinds
 
     private string handCategory = "?";
     private int handScore = 0;

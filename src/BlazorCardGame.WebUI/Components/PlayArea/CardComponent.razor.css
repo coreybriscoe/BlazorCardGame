@@ -1,5 +1,5 @@
 /* CSS for a playing card */
-.card {
+.playing-card {
     width: 60px;
     height: 90px;
     border: 1px solid black;
@@ -33,14 +33,14 @@
     background-color: lightpink;
 }
 
-.card:hover {
+.playing-card:hover {
     transform: scale(1.1);
     z-index: 100;
     transition: all 0.3s;
 }
 
 @media (min-width: 1024px) {
-    .card {
+    .playing-card {
         width: 100px;
         height: 150px;
         font-size: 24pt;

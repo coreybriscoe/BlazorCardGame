@@ -42,6 +42,6 @@
 
     private string cardCssClass()
     {
-        return (Card is IPlayingCard && ((IPlayingCard) Card).IsSelected()) ? "card selected" : "card";
+        return (Card is IPlayingCard && ((IPlayingCard) Card).IsSelected()) ? "playing-card selected" : "playing-card";
     }
 }
