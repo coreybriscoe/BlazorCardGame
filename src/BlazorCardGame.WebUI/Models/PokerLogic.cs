@@ -50,6 +50,7 @@ public static class PokerLogic
     {
         var ranks = cards.Select(c => c.GetRank()).OrderBy(r => r).ToList();
         var firstRank = ranks[0];
+        if (ranks.Count != 5) return false;
         return ranks.SequenceEqual(Enumerable.Range(firstRank, 5)) || (ranks.GetRange(0, 4).SequenceEqual(Enumerable.Range(firstRank, 4)) && firstRank == 2 && ranks[4] == 14);
     }
 
