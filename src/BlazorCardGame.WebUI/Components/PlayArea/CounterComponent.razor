@@ -1,4 +1,4 @@
-<div class=@(RaisedStyle ? "raised" : "")>
+<div class=@_class()>
     @CurrentCount / @TotalCount
 </div>
 
@@ -11,4 +11,9 @@
 
     [Parameter]
     public bool RaisedStyle { get; set; } = false;
+
+    private string _class()
+    {
+        return "flex-center " + (RaisedStyle ? "raised-text" : "");
+    }
 }
