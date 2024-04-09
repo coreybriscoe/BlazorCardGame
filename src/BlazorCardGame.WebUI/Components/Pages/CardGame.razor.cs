@@ -26,6 +26,7 @@ public partial class CardGame : FluxorComponent
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         char[] suits = { '♦', '♣', '♥', '♠' };
         List<ICard> deckCards = new List<ICard>();
         for (int i = 2; i < 15; i++)
