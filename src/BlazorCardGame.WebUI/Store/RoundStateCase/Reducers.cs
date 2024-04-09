@@ -9,7 +9,7 @@ public static class Reducers
     }
 
     [ReducerMethod]
-    public static RoundState ReduceSetHandsRemainingAction(RoundState state, DecrementHandsRemainingAction action)
+    public static RoundState ReduceSetHandsRemainingAction(RoundState state, SetHandsRemainingAction action)
     {
         return new RoundState(handsRemaining: action.Amount, discardsRemaining: state.DiscardsRemaining, roundScore: state.RoundScore);
     }
@@ -21,7 +21,7 @@ public static class Reducers
     }
 
     [ReducerMethod]
-    public static RoundState ReduceSetDiscardsRemainingAction(RoundState state, DecrementDiscardsRemainingAction action)
+    public static RoundState ReduceSetDiscardsRemainingAction(RoundState state, SetDiscardsRemainingAction action)
     {
         return new RoundState(handsRemaining: state.HandsRemaining, discardsRemaining: action.Amount, roundScore: state.RoundScore);
     }
