@@ -1,7 +1,14 @@
+using Fluxor.Blazor.Web.Components;
+using Microsoft.AspNetCore.Components;
+
 namespace BlazorCardGame.WebUI.Components.Pages;
 
-public partial class CardGame
+public partial class CardGame : FluxorComponent
 {
+    [Inject]
+    private IState<RoundState> RoundState { get; set; }
+    [Inject]
+    public IDispatcher Dispatcher { get; set; }
     private int handLimit = 8;
     private void DeckClicked()
     {
@@ -45,6 +52,10 @@ public partial class CardGame
             ICard card = deck.Draw();
             hand.Add((PlayingCard) card);
         }
+
+        // Set initial hands remaining and discards remaining state
+        Dispatcher.Dispatch(new SetHandsRemainingAction(3));
+        Dispatcher.Dispatch(new SetDiscardsRemainingAction(3));
     }
 
     private int anteLevel = 1;
@@ -54,7 +65,6 @@ public partial class CardGame
     private string handCategory = "?";
     private int handScore = 0;
     private int handMultiplier = 0;
-    private int roundHandsRemaining = 3;
     private void OnHandCardsSelected(List<BasePlayingCard> handCards)
     {
         PokerLogic.HandCategory selectedCardsCategory = PokerLogic.GetHandCategory(handCards.ToList<IPlayingCard>());
@@ -84,10 +94,9 @@ public partial class CardGame
         handMultiplier = HandScores.handBaseMultiplier.GetValueOrDefault<PokerLogic.HandCategory, int>(selectedCardsCategory, 0);
     }
 
-    private int roundScore = 0;
     private void PlayHandClicked()
     {
-        roundScore += handScore * handMultiplier;
+        Dispatcher.Dispatch(new AddRoundScoreAction(handScore * handMultiplier));
         // Replace selected cards
         List<BasePlayingCard> selectedCards = hand.Where(c => ((IPlayingCard) c).IsSelected()).ToList<BasePlayingCard>();
         hand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
@@ -100,10 +109,9 @@ public partial class CardGame
         handCategory = "?";
         handScore = 0;
         handMultiplier = 0;
-        roundHandsRemaining--;
+        Dispatcher.Dispatch(new DecrementHandsRemainingAction());
     }
 
-    private int roundDiscardsRemaining = 2;
     private void DiscardHandClicked()
     {
         // Replace selected cards
@@ -118,6 +126,6 @@ public partial class CardGame
         handCategory = "?";
         handScore = 0;
         handMultiplier = 0;
-        roundDiscardsRemaining--;
+        Dispatcher.Dispatch(new DecrementDiscardsRemainingAction());
     }
 }

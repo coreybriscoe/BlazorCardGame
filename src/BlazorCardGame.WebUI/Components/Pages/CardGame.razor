@@ -1,5 +1,6 @@
 ﻿@namespace BlazorCardGame.WebUI.Components.Pages
 @page "/"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @using BlazorCardGame.WebUI.Components.PlayArea
 
 <PageTitle>Card Game</PageTitle>
@@ -28,7 +29,7 @@
         </div>
         <div id="score-cell" class="cell flex-row">
             <div class="flex-1 flex-center">Round score</div>
-            <div class="flex-2 bold big-number">@roundScore</div>
+            <div class="flex-2 bold big-number">@RoundState.Value.RoundScore</div>
             <div class="flex-1"></div>
         </div>
         <div id="calculation-cell" class="calculation cell flex-column">
@@ -42,10 +43,10 @@
         <div id="inventory-cell" class="inventory cell flex-row">
             <div class="colorbox-thin gold gold-border flex-center flex-1 bold big-number">$22</div>
             <div class="colorbox-thin blue-border flex-row flex-1">
-                <div class="flex-center"><span class="bold blue big-number">@roundHandsRemaining</span> Hands</div>
+                <div class="flex-center"><span class="bold blue big-number">@RoundState.Value.HandsRemaining</span> Hands</div>
             </div>
             <div class="colorbox-thin red-border flex-column flex-1">
-                <div class="flex-center"><span class="bold red big-number">@roundDiscardsRemaining</span> Discards</div>
+                <div class="flex-center"><span class="bold red big-number">@RoundState.Value.DiscardsRemaining</span> Discards</div>
             </div>
         </div>
         <div id="help-cell" class="cell flex-row">
@@ -73,8 +74,8 @@
         <div id="play-discard-row">
             <div class="flex-row flex-center w-3-4">
                 @if (handCategory != "?") {
-                    <div class="colorbox blue-bg flex-1" onclick=@PlayHandClicked>Play</div>
-                    <div class="colorbox red-bg flex-1" onclick=@DiscardHandClicked>Discard</div>
+                    <div class="colorbox blue-bg flex-1" @onclick="PlayHandClicked">Play</div>
+                    <div class="colorbox red-bg flex-1" @onclick="DiscardHandClicked">Discard</div>
                 } else {
                     <div class="flex-2">Select some cards from your hand.</div>
                 }
