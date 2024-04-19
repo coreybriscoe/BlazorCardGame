@@ -6,6 +6,8 @@ namespace BlazorCardGame.WebUI.Components.Pages;
 public partial class CardGame : FluxorComponent
 {
     [Inject]
+    private IState<RunState> RunState { get; set; }
+    [Inject]
     private IState<RoundState> RoundState { get; set; }
     [Inject]
     public IDispatcher Dispatcher { get; set; }
@@ -59,8 +61,6 @@ public partial class CardGame : FluxorComponent
         Dispatcher.Dispatch(new SetDiscardsRemainingAction(3));
     }
 
-    private int anteLevel = 1;
-    private int roundLevel = 1;
     private int phaseLevel = 1; // [1, 2, 3] for small, big, and boss blinds
 
     private string handCategory = "?";
