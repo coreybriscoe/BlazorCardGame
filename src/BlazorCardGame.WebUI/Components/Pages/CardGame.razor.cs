@@ -61,8 +61,6 @@ public partial class CardGame : FluxorComponent
         Dispatcher.Dispatch(new SetDiscardsRemainingAction(3));
     }
 
-    private int phaseLevel = 1; // [1, 2, 3] for small, big, and boss blinds
-
     private string handCategory = "?";
     private int handScore = 0;
     private int handMultiplier = 0;
