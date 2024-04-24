@@ -18,4 +18,11 @@ public static class Levels
     };
 
     public static readonly float BIG_BLIND_FACTOR = 1.5F;
+
+    public enum Phase
+    {
+        SMALL_BLIND = 1,
+        BIG_BLIND = 2,
+        BOSS_BLIND = 3,
+    }
 }

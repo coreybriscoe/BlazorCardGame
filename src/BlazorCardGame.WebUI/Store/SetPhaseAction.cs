@@ -1,8 +1,8 @@
 public class SetPhaseAction
 {
-    public int Phase { get; }
+    public Levels.Phase Phase { get; }
     public SetPhaseAction() { }
-    public SetPhaseAction(int phase)
+    public SetPhaseAction(Levels.Phase phase)
     {
         Phase = phase;
     }
