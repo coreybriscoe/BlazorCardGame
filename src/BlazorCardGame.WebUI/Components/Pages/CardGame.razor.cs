@@ -25,6 +25,23 @@ public partial class CardGame : FluxorComponent
     };
 
     static Deck deck;
+    private long scoreToWin = 300;
+
+    private long getScoreToWin()
+    {
+        long baseAnte = Levels.baseAnteLevels[RunState.Value.Ante];
+        switch (RunState.Value.Phase)
+        {
+            case Levels.Phase.SMALL_BLIND:
+                return baseAnte;
+            case Levels.Phase.BIG_BLIND:
+                return (long) (baseAnte * Levels.BIG_BLIND_FACTOR);
+            case Levels.Phase.BOSS_BLIND:
+                return (long) (baseAnte * 2); // TODO: calculate using boss's factor
+            default:
+                throw new InvalidOperationException($"RunState.Value.Phase had an unexpected value: {RunState.Value.Phase}");
+        }
+    }
 
     protected override void OnInitialized()
     {
@@ -59,6 +76,8 @@ public partial class CardGame : FluxorComponent
         // Set initial hands remaining and discards remaining state
         Dispatcher.Dispatch(new SetHandsRemainingAction(3));
         Dispatcher.Dispatch(new SetDiscardsRemainingAction(3));
+
+        scoreToWin = getScoreToWin();
     }
 
     private string handCategory = "?";
