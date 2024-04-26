@@ -1,0 +1,90 @@
+/* Info Area styles */
+#info-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: darkslategray;
+    color: white;
+    padding: 4px;
+}
+
+#progress-cell {
+    margin: 0 0 2px 0;
+    border: 3px solid darkgoldenrod;
+    border-radius: 5px;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+}
+
+#progress-cell .big-number {
+    font-size: 18pt;
+}
+
+#challenge-cell {
+    margin: 0 0 2px 0;
+    border: 3px solid darkgoldenrod;
+    border-radius: 5px;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    font-size: 12pt;
+}
+
+#challenge-cell .big-number {
+    font-size: 24pt;
+    text-shadow: 1px 1px 5px rgba(120, 0, 0, 0.75);
+}
+
+#challenge-cell > * {
+    margin: 4px;
+}
+
+#score-cell {
+    font-size: 12pt;
+    text-align: center;
+}
+
+#score-cell > * {
+    margin: 4px;
+}
+
+#score-cell .big-number {
+    font-size: 24pt;
+}
+
+#calculation-cell {
+    text-align: center;
+    align-items: center;
+}
+
+#hand-category {
+    font-size: 18pt;
+}
+
+#hand-category-level {
+    font-size: 14pt;
+}
+
+#multiplier-x {
+    height: 30px;
+    line-height: 30px;
+}
+
+#inventory-cell {
+    width: 100%;
+    font-size: 12pt;
+}
+
+#inventory-cell .big-number {
+    font-size: 24pt;
+}
+
+#help-cell {
+    width: 100%;
+    font-size: 14pt;
+    height: 36px;
+    padding: 5px 0 5px 0;
+}

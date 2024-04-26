@@ -10,38 +10,14 @@ public partial class CardGame : FluxorComponent
     [Inject]
     private IState<RoundState> RoundState { get; set; }
     [Inject]
+    private IState<CardsState> CardsState { get; set; }
+    [Inject]
+    private IState<MenuState> MenuState { get; set; }
+    [Inject]
     public IDispatcher Dispatcher { get; set; }
     private int handLimit = 8;
-    private void DeckClicked()
-    {
-        if (deck.Count() < 1 || hand.Count() >= handLimit) return;
-        ICard card = deck.Draw();
-        hand.Add((PlayingCard) card);
-    }
-
-    List<BasePlayingCard> hand = new List<BasePlayingCard>
-    {
-        // new PlayingCard(1, '♦', isFaceUp: true, isSelectable: true),
-    };
 
     static Deck deck;
-    private long scoreToWin = 300;
-
-    private long getScoreToWin()
-    {
-        long baseAnte = Levels.baseAnteLevels[RunState.Value.Ante];
-        switch (RunState.Value.Phase)
-        {
-            case Levels.Phase.SMALL_BLIND:
-                return baseAnte;
-            case Levels.Phase.BIG_BLIND:
-                return (long) (baseAnte * Levels.BIG_BLIND_FACTOR);
-            case Levels.Phase.BOSS_BLIND:
-                return (long) (baseAnte * 2); // TODO: calculate using boss's factor
-            default:
-                throw new InvalidOperationException($"RunState.Value.Phase had an unexpected value: {RunState.Value.Phase}");
-        }
-    }
 
     protected override void OnInitialized()
     {
@@ -67,83 +43,50 @@ public partial class CardGame : FluxorComponent
         deck.Shuffle();
 
         // Draw cards
+        List<BasePlayingCard> hand = [];
         for (int i = 0; i < handLimit; i++)
         {
             ICard card = deck.Draw();
             hand.Add((PlayingCard) card);
         }
+        // Set hand cards state
+        Dispatcher.Dispatch(new SetHandCardsAction(hand));
 
         // Set initial hands remaining and discards remaining state
         Dispatcher.Dispatch(new SetHandsRemainingAction(3));
         Dispatcher.Dispatch(new SetDiscardsRemainingAction(3));
-
-        scoreToWin = getScoreToWin();
     }
 
     private string handCategory = "?";
     private int handScore = 0;
     private int handMultiplier = 0;
-    private void OnHandCardsSelected(List<BasePlayingCard> handCards)
-    {
-        PokerLogic.HandCategory selectedCardsCategory = PokerLogic.GetHandCategory(handCards.ToList<IPlayingCard>());
-        handCategory = PokerLogic.HandCategoryNames.GetValueOrDefault(selectedCardsCategory, "?");
-        if (handCategory == "?") {
-            handScore = 0;
-            handMultiplier = 0;
-            return;
-        }
-        // Determine points: sum of scoring cards' value and base category points
-        int points = HandScores.handBasePoints.GetValueOrDefault<PokerLogic.HandCategory, int>(selectedCardsCategory, 0);
-        List<BasePlayingCard> selectedCards = handCards.Where(c => ((IPlayingCard) c).IsSelected()).ToList();
-        // Scoring cards are cards for which their exclusion would change the hand category
-        // unless the hand category is high card, in which case score only the highest card
-        if (selectedCardsCategory != PokerLogic.HandCategory.HighCard)
-        {
-            points += selectedCards.Where(
-                c => selectedCardsCategory != PokerLogic.GetHandCategory(selectedCards.Where(
-                    c2 => !c2.Equals(c)).ToList<IPlayingCard>())
-            ).ToList<BasePlayingCard>().Sum(c => c.GetPoints());
-        }
-        else
-        {
-            points += selectedCards.Max(c => c.GetPoints());
-        }
-        handScore = points;
-        handMultiplier = HandScores.handBaseMultiplier.GetValueOrDefault<PokerLogic.HandCategory, int>(selectedCardsCategory, 0);
-    }
 
     private void PlayHandClicked()
     {
         Dispatcher.Dispatch(new AddRoundScoreAction(handScore * handMultiplier));
         // Replace selected cards
-        List<BasePlayingCard> selectedCards = hand.Where(c => ((IPlayingCard) c).IsSelected()).ToList<BasePlayingCard>();
-        hand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
+        List<BasePlayingCard> newHand = CardsState.Value.HandCards.ToList();
+        newHand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
+        List<BasePlayingCard> selectedCards = newHand.Where(c => ((IPlayingCard) c).IsSelected()).ToList<BasePlayingCard>();
         selectedCards.ForEach(c => {
             c.ToggleSelect();
             ICard replacementCard = deck.Draw();
-            hand.Add((PlayingCard) replacementCard);
+            newHand.Add((PlayingCard) replacementCard);
         });
-        // Update info area values
-        handCategory = "?";
-        handScore = 0;
-        handMultiplier = 0;
+        Dispatcher.Dispatch(new SetHandCardsAction(newHand));
         Dispatcher.Dispatch(new DecrementHandsRemainingAction());
     }
 
     private void DiscardHandClicked()
     {
         // Replace selected cards
-        List<BasePlayingCard> selectedCards = hand.Where(c => ((IPlayingCard) c).IsSelected()).ToList<BasePlayingCard>();
-        hand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
-        selectedCards.ForEach(c => {
+        List<BasePlayingCard> newHand = CardsState.Value.HandCards.ToList();
+        newHand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
+        newHand.ForEach(c => {
             c.ToggleSelect();
             ICard replacementCard = deck.Draw();
-            hand.Add((PlayingCard) replacementCard);
+            newHand.Add((PlayingCard) replacementCard);
         });
-        // Update info area values
-        handCategory = "?";
-        handScore = 0;
-        handMultiplier = 0;
         Dispatcher.Dispatch(new DecrementDiscardsRemainingAction());
     }
 }

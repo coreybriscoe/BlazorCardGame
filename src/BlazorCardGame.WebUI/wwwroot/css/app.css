@@ -1,3 +1,4 @@
+/* Default or reset rules */
 html, body, .page {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100vh;
@@ -70,6 +71,7 @@ h1:focus {
     border-color: #929292;
 }
 
+/* Atomic universal style rules */
 .w-full {
     width: 100%;
 }
@@ -190,4 +192,63 @@ h1:focus {
 
 .red-border {
     border: 1px solid red;
+}
+
+/* Shared UI element rules */
+.cell {
+    background-color: gray;
+    border: 2px solid slategray;
+    border-radius: 5px;
+    width: 100%;
+    margin: 2px 0 2px 0;
+    color: white;
+}
+
+.colorbox {
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 5px;
+    font-size: 18pt;
+    text-align: center;
+    margin: 0px 2px 0px 2px;
+    padding: 0 9px 0 9px;
+    align-self: center;
+}
+
+.colorbox-thin {
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 5px;
+    font-size: 18pt;
+    text-align: center;
+    margin: 0px 2px 0px 2px;
+    padding: 0 9px 0 9px;
+}
+
+.button-small {
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 5px;
+    width: 80%;
+}
+
+.medallion-container * {
+    margin: 0;
+}
+
+.medallion {
+    border-width: 6px;
+    border-style: solid;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    /* shadow */
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.45);
+}
+
+.dollars {
+    font-size: 20pt;
+    color: gold;
 }
