@@ -1,4 +1,4 @@
-﻿@namespace BlazorCardGame.WebUI.Components.Pages
+@namespace BlazorCardGame.WebUI.Components.Pages
 @page "/"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @using BlazorCardGame.WebUI.Components.PlayArea
@@ -81,7 +81,7 @@
                 }
                 <div class="flex-center flex-1">
                     <PoolWithCounter CurrentCount=@deck.Count() TotalCount=@deck.DeckSize()>
-                        <DeckComponent DrawAllowed=true OnClick=@DeckClicked />
+                        <DeckComponent DrawAllowed=true />
                     </PoolWithCounter>
                 </div>
             </div>
