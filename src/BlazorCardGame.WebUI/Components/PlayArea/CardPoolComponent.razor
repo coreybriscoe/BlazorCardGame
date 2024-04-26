@@ -1,31 +1,12 @@
+@namespace BlazorCardGame.WebUI.Components.PlayArea
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@using BlazorCardGame.WebUI.Components.PlayArea
+@typeparam T
+@attribute [CascadingTypeParameter(nameof(T))]
+
 <div class="card-pool">
-    @foreach (ICard card in cards)
+    @foreach (T card in cards)
     {
-        <CardComponent Card=@card CardClicked=@CardClicked />
+        <CardComponent T=T Card=@card CardClicked=@CardClicked />
     }
 </div>
-
-@code {
-    [Parameter]
-    public List<ICard> cards { get; set; } = new List<ICard>();
-
-    [Parameter]
-    public bool cardsSelectable { get; set; } = false;
-
-    [Parameter]
-    public EventCallback<List<BasePlayingCard>> OnCardsSelected { get; set; }
-
-    private int maxSelectableCards = 5;
-
-    private void CardClicked(ICard card)
-    {
-        if (cardsSelectable && card is IPlayingCard && ((IPlayingCard) card).IsSelectable())
-        {
-            if (((IPlayingCard) card).IsSelected() || cards.Count(c => c is IPlayingCard && ((IPlayingCard) c).IsSelected()) < maxSelectableCards)
-            {
-                ((BasePlayingCard) card).ToggleSelect();
-                OnCardsSelected.InvokeAsync(cards.Where(c => c is IPlayingCard && ((IPlayingCard) c).IsSelected()).Select(c => (BasePlayingCard) c).ToList());
-            }
-        }
-    }
-}

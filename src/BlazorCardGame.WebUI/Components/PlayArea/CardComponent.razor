@@ -1,3 +1,7 @@
+@namespace BlazorCardGame.WebUI.Components.PlayArea
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@using BlazorCardGame.WebUI.Components.PlayArea
+@typeparam T
 
 <div class="@cardCssClass()" onclick=@OnClick>
     @if (Card.IsFaceUp())
@@ -16,32 +20,3 @@
         <div class="card-back"></div>
     }
 </div>
-
-@code {
-    [Parameter]
-    public ICard Card { get; set; }
-
-    [Parameter]
-    public EventCallback<ICard> CardClicked { get; set; }
-
-    private async Task OnClick()
-    {
-        await CardClicked.InvokeAsync(Card);
-        StateHasChanged();
-    }
-
-    public bool IsRed()
-    {
-        return Card.GetSuit() == '♥' || Card.GetSuit() == '♦';
-    }
-
-    private string cardColorCssClass()
-    {
-        return IsRed() ? "red" : "black";
-    }
-
-    private string cardCssClass()
-    {
-        return (Card is IPlayingCard && ((IPlayingCard) Card).IsSelected()) ? "playing-card selected" : "playing-card";
-    }
-}

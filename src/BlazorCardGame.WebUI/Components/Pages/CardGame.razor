@@ -65,10 +65,10 @@
     <div id="play-area">
         <div class="flex-row flex-center">
             <PoolWithCounter class="raised flex-3" CurrentCount=0 TotalCount=5>
-                <CardPoolComponent Cards=@(new List<PlayingCard>().Cast<ICard>().ToList()) cardsSelectable=false />
+                <CardPoolComponent T=PlayingCard Cards=@(new List<PlayingCard>()) cardsSelectable=false />
             </PoolWithCounter>
             <PoolWithCounter class="raised flex-2" CurrentCount=0 TotalCount=2>
-                <CardPoolComponent Cards=@(new List<PlayingCard>().Cast<ICard>().ToList()) cardsSelectable=false />
+                <CardPoolComponent T=PlayingCard Cards=@(new List<PlayingCard>()) cardsSelectable=false />
             </PoolWithCounter>
         </div>
         <div id="play-discard-row">
@@ -88,8 +88,8 @@
         </div>
 
         <div>
-            <PoolWithCounter class="raised" CurrentCount=@hand.Count() TotalCount=@handLimit>
-                <CardPoolComponent Cards=@(hand.Cast<ICard>().ToList()) cardsSelectable=true OnCardsSelected=@OnHandCardsSelected />
+            <PoolWithCounter class="raised" CurrentCount=@CardsState.Value.HandCards.Count() TotalCount=@handLimit>
+                <CardPoolComponent T=BasePlayingCard Cards=@CardsState.Value.HandCards cardsSelectable=true isHand=true/>
             </PoolWithCounter>
         </div>
     </div>
