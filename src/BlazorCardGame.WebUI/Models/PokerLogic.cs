@@ -34,19 +34,19 @@ public static class PokerLogic
         { HandCategory.FlushFive, "Flush Five" },
     };
 
-    public static string GetHandCategoryName(List<IPlayingCard> cards)
+    public static string GetHandCategoryName<T>(List<T> cards) where T : IPlayingCard
     {
         HandCategory category = GetHandCategory(cards);
         return HandCategoryNames.GetValueOrDefault(category) ?? "?";
     }
 
-    public static bool IsFlush(List<IPlayingCard> cards)
+    public static bool IsFlush<T>(List<T> cards) where T : IPlayingCard
     {
         var suit = cards[0].GetSuit();
         return cards.Count == 5 && cards.All(c => c.GetSuit() == suit);
     }
 
-    public static bool IsStraight(List<IPlayingCard> cards)
+    public static bool IsStraight<T>(List<T> cards) where T : IPlayingCard
     {
         var ranks = cards.Select(c => c.GetRank()).OrderBy(r => r).ToList();
         var firstRank = ranks[0];
@@ -54,57 +54,57 @@ public static class PokerLogic
         return ranks.SequenceEqual(Enumerable.Range(firstRank, 5)) || (ranks.GetRange(0, 4).SequenceEqual(Enumerable.Range(firstRank, 4)) && firstRank == 2 && ranks[4] == 14);
     }
 
-    public static bool IsStraightFlush(List<IPlayingCard> cards)
+    public static bool IsStraightFlush<T>(List<T> cards) where T : IPlayingCard
     {
         return IsStraight(cards) && IsFlush(cards);
     }
 
-    public static bool IsFiveOfAKind(List<IPlayingCard> cards)
+    public static bool IsFiveOfAKind<T>(List<T> cards) where T : IPlayingCard
     {
         return cards.GroupBy(c => c.GetRank()).Any(g => g.Count() == 5);
     }
 
-    public static bool IsFlushHouse(List<IPlayingCard> cards)
+    public static bool IsFlushHouse<T>(List<T> cards) where T : IPlayingCard
     {
         return IsFlush(cards) && IsFullHouse(cards);
     }
 
-    public static bool IsFlushFive(List<IPlayingCard> cards)
+    public static bool IsFlushFive<T>(List<T> cards) where T : IPlayingCard
     {
         return IsFlush(cards) && IsFiveOfAKind(cards);
     }
 
-    public static bool IsFourOfAKind(List<IPlayingCard> cards)
+    public static bool IsFourOfAKind<T>(List<T> cards) where T : IPlayingCard
     {
         return cards.GroupBy(c => c.GetRank()).Any(g => g.Count() == 4);
     }
 
-    public static bool IsFullHouse(List<IPlayingCard> cards)
+    public static bool IsFullHouse<T>(List<T> cards) where T : IPlayingCard
     {
         return IsThreeOfAKind(cards) && IsOnePair(cards);
     }
 
-    public static bool IsThreeOfAKind(List<IPlayingCard> cards)
+    public static bool IsThreeOfAKind<T>(List<T> cards) where T : IPlayingCard
     {
         return cards.GroupBy(c => c.GetRank()).Any(g => g.Count() == 3);
     }
 
-    public static bool IsTwoPair(List<IPlayingCard> cards)
+    public static bool IsTwoPair<T>(List<T> cards) where T : IPlayingCard
     {
         return cards.GroupBy(c => c.GetRank()).Count(g => g.Count() == 2) == 2;
     }
 
-    public static bool IsOnePair(List<IPlayingCard> cards)
+    public static bool IsOnePair<T>(List<T> cards) where T : IPlayingCard
     {
         return cards.GroupBy(c => c.GetRank()).Any(g => g.Count() == 2);
     }
 
-    public static bool IsHighCard(List<IPlayingCard> cards)
+    public static bool IsHighCard<T>(List<T> cards) where T : IPlayingCard
     {
         return true;
     }
 
-    public static HandCategory GetHandCategory(List<IPlayingCard> cards)
+    public static HandCategory GetHandCategory<T>(List<T> cards) where T : IPlayingCard
     {
         if (cards.Count == 0)
         {
