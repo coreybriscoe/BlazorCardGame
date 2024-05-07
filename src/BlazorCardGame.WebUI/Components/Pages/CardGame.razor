@@ -19,9 +19,9 @@
         </div>
         <div id="play-discard-row">
             <div class="flex-row flex-center w-3-4">
-                @if (handCategory != "?") {
-                    <div class="colorbox blue-bg flex-1" @onclick="PlayHandClicked">Play</div>
-                    <div class="colorbox red-bg flex-1" @onclick="DiscardHandClicked">Discard</div>
+                @if (isPlayableHand()) {
+                    <div class="colorbox blue-bg flex-1" @onclick=PlayHandClicked>Play</div>
+                    <div class="colorbox red-bg flex-1" @onclick=DiscardHandClicked>Discard</div>
                 } else {
                     <div class="flex-2">Select some cards from your hand.</div>
                 }
