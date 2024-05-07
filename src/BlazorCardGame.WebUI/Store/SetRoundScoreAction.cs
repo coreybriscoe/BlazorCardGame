@@ -1,8 +1,8 @@
 public class SetRoundScoreAction
 {
-    public int Amount { get; }
+    public long Amount { get; }
     public SetRoundScoreAction() { }
-    public SetRoundScoreAction(int amount)
+    public SetRoundScoreAction(long amount)
     {
         Amount = amount;
     }
