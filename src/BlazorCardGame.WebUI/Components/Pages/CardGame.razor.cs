@@ -19,6 +19,8 @@ public partial class CardGame : FluxorComponent
 
     static Deck deck;
 
+    public IDrawStrategy<BasePlayingCard> DrawStrategy { get; set; }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -41,14 +43,10 @@ public partial class CardGame : FluxorComponent
         }
         deck = new Deck(deckCards);
         deck.Shuffle();
+        DrawStrategy = new DefaultDrawStrategy<BasePlayingCard>(deck);
 
         // Draw cards
-        List<BasePlayingCard> hand = [];
-        for (int i = 0; i < handLimit; i++)
-        {
-            ICard card = deck.Draw();
-            hand.Add((PlayingCard) card);
-        }
+        List<BasePlayingCard> hand = DrawStrategy.DrawCards(handLimit);
         // Set hand cards state
         Dispatcher.Dispatch(new SetHandCardsAction(hand));
 
@@ -97,32 +95,38 @@ public partial class CardGame : FluxorComponent
         selectedCardsCategory = PokerLogic.GetHandCategory(CardsState.Value.HandCards.Where(c => ((IPlayingCard) c).IsSelected()).ToList());
         Dispatcher.Dispatch(new AddRoundScoreAction(getHandScore() * getHandMultiplier()));
         // Replace selected cards
-        List<BasePlayingCard> newHand = CardsState.Value.HandCards.ToList();
-        List<BasePlayingCard> selectedCards = newHand.Where(c => ((IPlayingCard) c).IsSelected()).ToList<BasePlayingCard>();
-        selectedCards.ForEach(c => {
-            c.ToggleSelect();
-        });
-        newHand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
-        while (newHand.Count < handLimit)
+        List<BasePlayingCard> handCopy = CardsState.Value.HandCards.ToList();
+        for (int i = handCopy.Count - 1; i >= 0; i--)
         {
-            ICard replacementCard = deck.Draw();
-            newHand.Add((PlayingCard) replacementCard);
+            if (((IPlayingCard) handCopy[i]).IsSelected())
+            {
+                handCopy[i].ToggleSelect();
+                handCopy.RemoveAt(i);
+            }
         }
-        Dispatcher.Dispatch(new SetHandCardsAction(newHand));
+        List<BasePlayingCard> replacementCards = DrawStrategy.DrawCards(handLimit - handCopy.Count);
+        handCopy.AddRange(replacementCards);
+
+        Dispatcher.Dispatch(new SetHandCardsAction(handCopy));
         Dispatcher.Dispatch(new DecrementHandsRemainingAction());
     }
 
     private void DiscardHandClicked()
     {
         // Replace selected cards
-        List<BasePlayingCard> newHand = CardsState.Value.HandCards.ToList();
-        newHand.RemoveAll(c => ((IPlayingCard) c).IsSelected());
-        while (newHand.Count < handLimit)
+        List<BasePlayingCard> handCopy = CardsState.Value.HandCards.ToList();
+        for (int i = handCopy.Count - 1; i >= 0; i--)
         {
-            ICard replacementCard = deck.Draw();
-            newHand.Add((PlayingCard) replacementCard);
+            if (((IPlayingCard) handCopy[i]).IsSelected())
+            {
+                handCopy[i].ToggleSelect();
+                handCopy.RemoveAt(i);
+            }
         }
-        Dispatcher.Dispatch(new SetHandCardsAction(newHand));
+        List<BasePlayingCard> replacementCards = DrawStrategy.DrawCards(handLimit - handCopy.Count);
+        handCopy.AddRange(replacementCards);
+
+        Dispatcher.Dispatch(new SetHandCardsAction(handCopy));
         Dispatcher.Dispatch(new DecrementDiscardsRemainingAction());
     }
 }
