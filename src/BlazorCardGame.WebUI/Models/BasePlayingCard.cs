@@ -40,6 +40,11 @@ public abstract class BasePlayingCard(int rank, char suit, string rankString = "
         return IsFaceUp;
     }
 
+    void ICard.FlipCard()
+    {
+        IsFaceUp = !IsFaceUp;
+    }
+
     bool IPlayingCard.IsSelected()
     {
         return IsSelected;
