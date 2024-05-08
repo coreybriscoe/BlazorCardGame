@@ -21,11 +21,9 @@ public partial class CardGame : FluxorComponent
 
     public IDrawStrategy<BasePlayingCard> DrawStrategy { get; set; }
 
-    protected override void OnInitialized()
+    public CardGame()
     {
-        base.OnInitialized();
         char[] suits = { '♦', '♣', '♥', '♠' };
-        List<ICard> deckCards = new List<ICard>();
         for (int i = 2; i < 15; i++)
         {
             string rankString = i switch
@@ -38,13 +36,17 @@ public partial class CardGame : FluxorComponent
             };
             for (int j = 0; j < 4; j++)
             {
-                deckCards.Add(new PlayingCard(i, suits[j], rankString: rankString, isFaceUp: true, isSelectable: true));
+                deck.AddCard(new PlayingCard(i, suits[j], rankString: rankString, isFaceUp: true, isSelectable: true), false);
             }
         }
-        deck = new Deck(deckCards);
         deck.Shuffle();
-        DrawStrategy = new DefaultDrawStrategy<BasePlayingCard>(deck);
 
+        DrawStrategy = new DefaultDrawStrategy<BasePlayingCard>(deck);
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
         // Draw cards
         List<BasePlayingCard> hand = DrawStrategy.DrawCards(handLimit);
         // Set hand cards state
