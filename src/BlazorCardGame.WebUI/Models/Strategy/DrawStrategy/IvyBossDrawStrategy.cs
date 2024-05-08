@@ -1,6 +1,6 @@
 public class IvyBossDrawStrategy<T> : BaseDrawStrategy<T> where T : ICard
 {
-    public IvyBossDrawStrategy(Deck deck) : base(deck) { }
+    public IvyBossDrawStrategy(Deck<T> deck) : base(deck) { }
 
     public override List<T> DrawCards(int count)
     {

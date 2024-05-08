@@ -1,22 +1,21 @@
-public class Deck(List<ICard> cards)
+public class Deck<T>(List<T> cards) where T : ICard
 {
-    private List<ICard> Cards { get; set; } = cards;
-    private List<ICard> DiscardPile { get; set; } = new List<ICard>();
+    private List<T> Cards { get; set; } = cards;
+    private List<T> DiscardPile { get; set; } = [];
     public void Shuffle()
     {
-        Random random = new Random();
         for (int i = 0; i < Cards.Count; i++)
         {
-            int j = random.Next(i, Cards.Count);
-            ICard temp = Cards[i];
+            int j = Random.Shared.Next(i, Cards.Count);
+            T temp = Cards[i];
             Cards[i] = Cards[j];
             Cards[j] = temp;
         }
     }
 
-    public ICard Draw()
+    public T Draw()
     {
-        ICard card = Cards[0];
+        T card = Cards[0];
         DiscardPile.Add(card);
         Cards.RemoveAt(0);
         return card;

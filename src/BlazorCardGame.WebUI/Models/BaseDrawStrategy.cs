@@ -1,9 +1,9 @@
 public abstract class BaseDrawStrategy<T> : IDrawStrategy<T> where T : ICard
 {
-    protected Deck deck;
+    protected Deck<T> deck;
     protected double FaceUpRate = 1;
 
-    protected BaseDrawStrategy(Deck deck)
+    protected BaseDrawStrategy(Deck<T> deck)
     {
         this.deck = deck;
     }

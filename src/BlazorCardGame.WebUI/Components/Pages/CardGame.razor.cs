@@ -17,7 +17,7 @@ public partial class CardGame : FluxorComponent
     public IDispatcher Dispatcher { get; set; }
     private int handLimit = 8;
 
-    static Deck deck;
+    static Deck<BasePlayingCard> deck = new Deck<BasePlayingCard>([]);
 
     public IDrawStrategy<BasePlayingCard> DrawStrategy { get; set; }
 

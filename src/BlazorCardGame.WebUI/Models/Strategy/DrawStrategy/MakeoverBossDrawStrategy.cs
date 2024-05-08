@@ -1,6 +1,6 @@
 public class MakeoverBossDrawStrategy<T> : BaseDrawStrategy<T> where T : ICard
 {
-    public MakeoverBossDrawStrategy(Deck deck) : base(deck) { }
+    public MakeoverBossDrawStrategy(Deck<T> deck) : base(deck) { }
 
     public override List<T> DrawCards(int count)
     {
