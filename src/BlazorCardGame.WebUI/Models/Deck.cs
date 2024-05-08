@@ -37,4 +37,15 @@ public class Deck<T>(List<T> cards) where T : ICard
     {
         return Cards.Count + DiscardPile.Count;
     }
+
+    public void AddCard(T card, bool insertRandomly = true)
+    {
+        if (insertRandomly)
+        {
+            Cards.Insert(Random.Shared.Next(Cards.Count), card);
+        } else
+        {
+            Cards.Add(card);
+        }
+    }
 }
