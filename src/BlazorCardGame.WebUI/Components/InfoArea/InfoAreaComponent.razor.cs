@@ -1,5 +1,6 @@
 using Fluxor.Blazor.Web.Components;
 using Microsoft.AspNetCore.Components;
+using BlazorCardGame.Domain.Models;
 
 namespace BlazorCardGame.WebUI.Components.InfoArea;
 

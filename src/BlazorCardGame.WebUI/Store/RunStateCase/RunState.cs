@@ -1,3 +1,4 @@
+using BlazorCardGame.Domain.Models;
 [FeatureState]
 public class RunState
 {

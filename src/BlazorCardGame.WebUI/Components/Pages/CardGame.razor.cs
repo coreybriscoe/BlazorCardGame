@@ -1,5 +1,8 @@
 using Fluxor.Blazor.Web.Components;
 using Microsoft.AspNetCore.Components;
+using BlazorCardGame.Domain.Models;
+using BlazorCardGame.Domain.Patterns.Command;
+using BlazorCardGame.Domain.Patterns.Strategy.DrawStrategy;
 
 namespace BlazorCardGame.WebUI.Components.Pages;
 

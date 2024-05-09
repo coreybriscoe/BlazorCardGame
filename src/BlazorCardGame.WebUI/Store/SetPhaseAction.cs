@@ -1,3 +1,4 @@
+using BlazorCardGame.Domain.Models;
 public class SetPhaseAction
 {
     public Levels.Phase Phase { get; }
