@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCardGame.WebUI", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCardGame.WebAPI", "src\BlazorCardGame.WebAPI\BlazorCardGame.WebAPI.csproj", "{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCardGame.Domain", "src\BlazorCardGame.Domain\BlazorCardGame.Domain.csproj", "{94F6C810-A91E-4D99-AC9A-7DE96144EE0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F6C810-A91E-4D99-AC9A-7DE96144EE0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F6C810-A91E-4D99-AC9A-7DE96144EE0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F6C810-A91E-4D99-AC9A-7DE96144EE0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F6C810-A91E-4D99-AC9A-7DE96144EE0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,5 +41,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6E6FEF88-7320-47CF-8E0F-926DD6B04D98} = {72740F63-1E06-4ECA-BFC8-D9372D2E3279}
 		{6CF568D8-8E17-41BC-8EA5-1BA51CA29DBC} = {72740F63-1E06-4ECA-BFC8-D9372D2E3279}
+		{94F6C810-A91E-4D99-AC9A-7DE96144EE0E} = {72740F63-1E06-4ECA-BFC8-D9372D2E3279}
 	EndGlobalSection
 EndGlobal
