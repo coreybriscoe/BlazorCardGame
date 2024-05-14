@@ -58,6 +58,14 @@ namespace BlazorCardGame.Domain.Models
             RoundScore = value;
         }
 
+        public void SelectCard(ICard card)
+        {
+            if (card is BasePlayingCard && ((IPlayingCard) card).IsSelectable())
+            {
+                ((BasePlayingCard) card).ToggleSelect();
+            }
+        }
+
         public void SetHandCards(List<BasePlayingCard> handCards)
         {
             HandCards = handCards;

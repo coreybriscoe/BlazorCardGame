@@ -29,11 +29,11 @@
         <div class="flex-1"></div>
     </div>
     <div id="calculation-cell" class="calculation cell flex-column">
-        <div id="hand-category">@getHandCategoryName() <span id="hand-category-level">lvl. 1</span></div>
+        <div id="hand-category">@GameService.GetHandCategoryName() <span id="hand-category-level">lvl. 1</span></div>
         <div class="flex-row w-half">
-            <div class="colorbox blue-borderless-bg flex-3 bold">@getHandScore()</div>
+            <div class="colorbox blue-borderless-bg flex-3 bold">@GameService.GetHandScore()</div>
             <div id="multiplier-x" class="flex-1">x</div>
-            <div class="colorbox red-borderless-bg flex-3 bold">@getHandMultiplier()</div>
+            <div class="colorbox red-borderless-bg flex-3 bold">@GameService.GetHandMultiplier()</div>
         </div>
     </div>
     <div id="inventory-cell" class="inventory cell flex-row">

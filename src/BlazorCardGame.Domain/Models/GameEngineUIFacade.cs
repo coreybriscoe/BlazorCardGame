@@ -56,30 +56,11 @@ namespace BlazorCardGame.Domain.Models
             return GameEngine.GameState.Deck.DeckSize();
         }
 
-        public void SelectHandCard(ICard card)
+        public void SelectCard(ICard card)
         {
-            if (card is BasePlayingCard && ((IPlayingCard) card).IsSelectable())
-            {
-                ((BasePlayingCard) card).ToggleSelect();
-            }
+            GameEngine.GameState.SelectCard(card);
             ChangeState();
         }
-
-        // if (isHand)
-        // {
-        //     if (typeof(T) != typeof(BasePlayingCard))
-        //     {
-        //         return;
-        //     }
-        //     if (cardsSelectable && card is IPlayingCard && ((IPlayingCard) card).IsSelectable())
-        //     {
-        //         if (((IPlayingCard) card).IsSelected() || cards.Count(c => c is IPlayingCard && ((IPlayingCard) c).IsSelected()) < maxSelectableCards)
-        //         {
-        //             ((BasePlayingCard)(object) card).ToggleSelect();
-        //             Dispatcher.Dispatch(new SetHandCardsAction(cards.Select(c => (BasePlayingCard)(object) c).ToList()));
-        //         }
-        //     }
-        // }
 
         public void PlayHand()
         {

@@ -16,27 +16,17 @@ public partial class CardPoolComponent<T> : FluxorComponent where T : ICard
     public bool isHand { get; set; } = false;
 
     [Inject]
-    public IState<MenuState> MenuState { get; set; }
-    [Inject]
-    public IDispatcher Dispatcher { get; set; }
+    private GameEngineUIFacade GameService { get; set; }
 
     private int maxSelectableCards = 5;
 
     private void CardClicked(T card)
     {
-        if (isHand)
+        if (cardsSelectable)
         {
-            if (typeof(T) != typeof(BasePlayingCard))
+            if (isHand)
             {
-                return;
-            }
-            if (cardsSelectable && card is IPlayingCard && ((IPlayingCard) card).IsSelectable())
-            {
-                if (((IPlayingCard) card).IsSelected() || cards.Count(c => c is IPlayingCard && ((IPlayingCard) c).IsSelected()) < maxSelectableCards)
-                {
-                    ((BasePlayingCard)(object) card).ToggleSelect();
-                    Dispatcher.Dispatch(new SetHandCardsAction(cards.Select(c => (BasePlayingCard)(object) c).ToList()));
-                }
+                GameService.SelectCard(card);   
             }
         }
     }

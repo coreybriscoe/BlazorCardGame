@@ -13,7 +13,7 @@ public partial class InfoAreaComponent : FluxorComponent
     [Inject]
     private IState<MenuState> MenuState { get; set; }
     [Inject]
-    private IState<CardsState> CardsState { get; set; }
+    private GameEngineUIFacade GameService { get; set; }
     [Inject]
     public IDispatcher Dispatcher { get; set; }
 
@@ -36,48 +36,11 @@ public partial class InfoAreaComponent : FluxorComponent
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        GameService.NotifySubscribers += StateHasChanged;
     }
 
-    private PokerLogic.HandCategory selectedCardsCategory = PokerLogic.HandCategory.NoCategory;
-    private string getHandCategoryName()
+    private void Dispose()
     {
-        selectedCardsCategory = PokerLogic.GetHandCategory(CardsState.Value.HandCards.Where(c => ((IPlayingCard) c).IsSelected()).ToList());
-        return PokerLogic.HandCategoryNames.GetValueOrDefault(selectedCardsCategory, "?");
+        GameService.NotifySubscribers -= StateHasChanged;
     }
-
-    private string getHandScore()
-    {
-        List<BasePlayingCard> selectedCards = CardsState.Value.HandCards.Where(c => ((IPlayingCard) c).IsSelected()).ToList();
-        // Determine points: sum of scoring cards' value and base category points
-        long points = HandScores.handBasePoints.GetValueOrDefault<PokerLogic.HandCategory, int>(selectedCardsCategory, 0);
-        // Scoring cards are cards for which their exclusion would change the hand category
-        // unless the hand category is high card, in which case score only the highest card
-        if (selectedCardsCategory != PokerLogic.HandCategory.HighCard)
-        {
-            points += CardsState.Value.HandCards.Where(
-                c => selectedCardsCategory != PokerLogic.GetHandCategory(
-                    selectedCards.Where(
-                        c2 => !c2.Equals(c)
-                    ).ToList<IPlayingCard>()
-                )
-            ).Sum(c => c.GetPoints());
-        }
-        else
-        {
-            points += CardsState.Value.HandCards.Where(c => ((IPlayingCard) c).IsSelected()).Max(c => c.GetPoints());
-        }
-        return points.ToString();
-    }
-
-    private string getHandMultiplier()
-    {
-        return HandScores.handBaseMultiplier.GetValueOrDefault<PokerLogic.HandCategory, int>(selectedCardsCategory, 0).ToString();
-    }
-
-    /*
-            if (handCategory == "?") {
-            handScore = 0;
-            handMultiplier = 0;
-        }
-    */
 }
