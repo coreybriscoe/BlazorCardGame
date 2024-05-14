@@ -36,6 +36,46 @@ namespace BlazorCardGame.Domain.Models
             return PokerLogic.GetHandCategory(GameEngine.GameState.HandCards.Where(c => ((IPlayingCard) c).IsSelected()).ToList()) != PokerLogic.HandCategory.NoCategory;
         }
 
+        public string GetHandsRemaining()
+        {
+            return GameEngine.GameState.HandsRemaining.ToString();
+        }
+
+        public string GetDiscardsRemaining()
+        {
+            return GameEngine.GameState.DiscardsRemaining.ToString();
+        }
+
+        public string GetAnte()
+        {
+            return GameEngine.GameState.Ante.ToString();
+        }
+
+        public string GetRound()
+        {
+            return GameEngine.GameState.Round.ToString();
+        }
+
+        public Levels.Phase GetPhase()
+        {
+            return GameEngine.GameState.Phase;
+        }
+
+        public string GetCash()
+        {
+            return GameEngine.GameState.Cash.ToString();
+        }
+
+        public string GetScoreToWin()
+        {
+            return GameEngine.GameState.GetScoreToWin().ToString();
+        }
+
+        public string GetRoundScore()
+        {
+            return GameEngine.GameState.RoundScore.ToString();
+        }
+
         public string GetHandScore()
         {
             return GameEngine.GameState.GetHandScore().ToString();

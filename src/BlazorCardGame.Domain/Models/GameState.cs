@@ -7,9 +7,13 @@ namespace BlazorCardGame.Domain.Models
         public List<BasePlayingCard> HandCards { get; private set; } = [];
         public Deck<BasePlayingCard> Deck { get; private set; } = new Deck<BasePlayingCard>([]);
         public int HandLimit { get; private set; } = 8;
-        private int HandsRemaining { get; set; } = 3;
-        private int DiscardsRemaining { get; set; } = 3;
-        private long RoundScore { get; set; } = 0;
+        public int HandsRemaining { get; private set; } = 3;
+        public int DiscardsRemaining { get; private set; } = 3;
+        public long RoundScore { get; private set; } = 0;
+        public int Ante { get; private set; } = 1;
+        public int Round { get; private set; } = 0;
+        public Levels.Phase Phase { get; private set; } = Levels.Phase.SMALL_BLIND;
+        public int Cash { get; private set; } = 0;
 
         private GameEngine GameEngine { get; set; }
         public GameState(GameEngine gameEngine)
@@ -58,6 +62,32 @@ namespace BlazorCardGame.Domain.Models
             RoundScore = value;
         }
 
+        public void IncrementAnte()
+        {
+            Ante++;
+        }
+
+        public void IncrementRound()
+        {
+            Round++;
+        }
+
+        public void IncrementPhase()
+        {
+            switch (Phase)
+            {
+                case Levels.Phase.SMALL_BLIND:
+                    Phase = Levels.Phase.BIG_BLIND;
+                    break;
+                case Levels.Phase.BIG_BLIND:
+                    Phase = Levels.Phase.BOSS_BLIND;
+                    break;
+                case Levels.Phase.BOSS_BLIND:
+                    Phase = Levels.Phase.SMALL_BLIND;
+                    break;
+            }
+        }
+
         public void SelectCard(ICard card)
         {
             if (card is BasePlayingCard && ((IPlayingCard) card).IsSelectable())
@@ -74,6 +104,22 @@ namespace BlazorCardGame.Domain.Models
         public void DecrementHandsRemaining()
         {
             HandsRemaining--;
+        }
+
+        public long GetScoreToWin()
+        {
+            long baseAnte = Levels.baseAnteLevels[Ante];
+            switch (Phase)
+            {
+                case Levels.Phase.SMALL_BLIND:
+                    return baseAnte;
+                case Levels.Phase.BIG_BLIND:
+                    return (long) (baseAnte * Levels.BIG_BLIND_FACTOR);
+                case Levels.Phase.BOSS_BLIND:
+                    return (long) (baseAnte * 2); // TODO: calculate using boss's factor
+                default:
+                    throw new InvalidOperationException($"GameState.Phase had an unexpected value: {Phase}");
+            }
         }
 
         public long GetHandScore()
