@@ -71,6 +71,11 @@ namespace BlazorCardGame.Domain.Models
             return GameEngine.GameState.GetScoreToWin().ToString();
         }
 
+        public string GetPhaseReward()
+        {
+            return string.Concat(Enumerable.Repeat("$", Levels.PhaseReward[GameEngine.GameState.Phase]));
+        }
+
         public string GetRoundScore()
         {
             return GameEngine.GameState.RoundScore.ToString();

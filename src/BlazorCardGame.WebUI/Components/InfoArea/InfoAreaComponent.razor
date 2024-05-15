@@ -1,34 +1,35 @@
 @namespace BlazorCardGame.WebUI.Components.InfoArea
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @using BlazorCardGame.WebUI.Components.InfoArea
+@using BlazorCardGame.Domain.Models
 
 <div id="info-area">
-    <div id="progress-cell" class="flex-row darkgold-bg">
-        <div class="flex-1 cell">
-            Ante <span class="big-number gold">@GameService.GetAnte()</span>/8
+    <div id="progress-cell" class="@("flex-row" + GetInfoAreaBackgroundColor())">
+        <div class="flex-1 cell cell-color">
+            Ante <span class="@("big-number" + GetInfoAreaColor())">@GameService.GetAnte()</span>/8
         </div>
-        <div class="flex-3"><span class="big-number bold">Big Blind</span></div>
-        <div class="flex-1 cell">Round <span class="big-number gold">@GameService.GetRound()</span></div>
+        <div class="flex-3"><span class="big-number bold">@GetPhaseTitle()</span></div>
+        <div class="flex-1 cell cell-color">Round <span class="@("big-number" + GetInfoAreaColor())">@GameService.GetRound()</span></div>
     </div>
-    <div id="challenge-cell" class="flex-row goal cell darkgold-bg">
+    <div id="challenge-cell" class="@("flex-row goal cell cell-color" + GetInfoAreaBorderColor())">
         <div class="medallion-container flex-1">
-            <div class="medallion darkgold-bg flex-center">
-                <div>BIG</div>
+            <div class="@("medallion flex-center" + GetInfoAreaBackgroundColor())">
+                <div>@(GameService.GetPhase() == Levels.Phase.SMALL_BLIND ? "SMALL" : "BIG")</div>
                 <div>BLIND</div>
             </div>
         </div>
         <div class="red flex-2 bold big-number">@GameService.GetScoreToWin()</div>
         <div class="flex-1 flex-column">
             <div>score to win</div>
-            <div class="dollars">$$$$</div>
+            <div class="dollars">@GameService.GetPhaseReward()</div>
         </div>
     </div>
-    <div id="score-cell" class="cell flex-row">
+    <div id="score-cell" class="cell cell-color flex-row">
         <div class="flex-1 flex-center">Round score</div>
         <div class="flex-2 bold big-number">@GameService.GetRoundScore()</div>
         <div class="flex-1"></div>
     </div>
-    <div id="calculation-cell" class="calculation cell flex-column">
+    <div id="calculation-cell" class="calculation cell cell-color flex-column">
         <div id="hand-category">@GameService.GetHandCategoryName() <span id="hand-category-level">lvl. 1</span></div>
         <div class="flex-row w-half">
             <div class="colorbox blue-borderless-bg flex-3 bold">@GameService.GetHandScore()</div>
@@ -36,7 +37,7 @@
             <div class="colorbox red-borderless-bg flex-3 bold">@GameService.GetHandMultiplier()</div>
         </div>
     </div>
-    <div id="inventory-cell" class="inventory cell flex-row">
+    <div id="inventory-cell" class="inventory cell cell-color flex-row">
         <div class="colorbox-thin gold gold-border flex-center flex-1 bold big-number">$@GameService.GetCash()</div>
         <div class="colorbox-thin blue-border flex-row flex-1">
             <div class="flex-center"><span class="bold blue big-number">@GameService.GetHandsRemaining()</span> Hands</div>
@@ -45,7 +46,7 @@
             <div class="flex-center"><span class="bold red big-number">@GameService.GetDiscardsRemaining()</span> Discards</div>
         </div>
     </div>
-    <div id="help-cell" class="cell flex-row">
+    <div id="help-cell" class="cell cell-color flex-row">
         <div class="flex-center flex-1">
             <div class="button-small lime-bg flex-center">R</div>
         </div>

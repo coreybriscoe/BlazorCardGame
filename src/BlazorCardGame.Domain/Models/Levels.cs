@@ -27,5 +27,12 @@ namespace BlazorCardGame.Domain.Models
             BIG_BLIND = 2,
             BOSS_BLIND = 3,
         }
+
+        public static readonly Dictionary<Phase, int> PhaseReward = new()
+        {
+            { Phase.SMALL_BLIND, 3 },
+            { Phase.BIG_BLIND, 4 },
+            { Phase.BOSS_BLIND, 5 },
+        };
     }
 }

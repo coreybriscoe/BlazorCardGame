@@ -11,7 +11,8 @@
 
 #progress-cell {
     margin: 0 0 2px 0;
-    border: 3px solid darkgoldenrod;
+    border-width: 3px;
+    border-style: solid;
     border-radius: 5px;
     width: 100%;
     align-items: center;
@@ -25,7 +26,8 @@
 
 #challenge-cell {
     margin: 0 0 2px 0;
-    border: 3px solid darkgoldenrod;
+    border-width: 3px;
+    border-style: solid;
     border-radius: 5px;
     width: 100%;
     align-items: center;

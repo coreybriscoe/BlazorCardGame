@@ -122,6 +122,12 @@ h1:focus {
 }
 
 /* Colors */
+/* UI element-specific colors listed first to allow overwrite */
+.cell-color {
+    background-color: gray;
+    border: 2px solid slategray;
+}
+
 .blue {
     color: blue;
 }
@@ -141,6 +147,20 @@ h1:focus {
     border: 1px solid blue;
 }
 
+.lightblue {
+    color: cornflowerblue;
+}
+
+.lightblue-bg {
+    background-color: cornflowerblue;
+    border-color: dodgerblue;
+    color: black;
+}
+
+.lightblue-border {
+    border-color: dodgerblue;
+}
+
 .gold {
     color: gold;
 }
@@ -158,6 +178,10 @@ h1:focus {
     background-color: goldenrod;
     border-color: darkgoldenrod;
     color: black;
+}
+
+.darkgold-border {
+    border-color: darkgoldenrod;
 }
 
 .lime-bg {
@@ -196,12 +220,9 @@ h1:focus {
 
 /* Shared UI element rules */
 .cell {
-    background-color: gray;
-    border: 2px solid slategray;
     border-radius: 5px;
     width: 100%;
     margin: 2px 0 2px 0;
-    color: white;
 }
 
 .colorbox {
