@@ -1,0 +1,31 @@
+@namespace BlazorCardGame.WebUI.Components.InfoArea
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@using BlazorCardGame.WebUI.Components.InfoArea
+@using BlazorCardGame.Domain.Models
+
+<div id="challenge-cell" class="@("flex-row goal cell cell-color" + InfoAreaComponent.GetInfoAreaBorderColor(GameService.GetPhase()))">
+    <div class="medallion-container flex-1">
+        <div class="@("medallion flex-center" + InfoAreaComponent.GetInfoAreaBackgroundColor(GameService.GetPhase()))">
+            <div>@(GameService.GetPhase() == Levels.Phase.SMALL_BLIND ? "SMALL" : "BIG")</div>
+            <div>BLIND</div>
+        </div>
+    </div>
+    <div class="red flex-2 bold big-number">@GameService.GetScoreToWin()</div>
+    <div class="flex-1 flex-column">
+        <div>score to win</div>
+        <div class="dollars">@GameService.GetPhaseReward()</div>
+    </div>
+</div>
+<div id="score-cell" class="cell cell-color flex-row">
+    <div class="flex-1 flex-center">Round score</div>
+    <div class="flex-2 bold big-number">@GameService.GetRoundScore()</div>
+    <div class="flex-1"></div>
+</div>
+<div id="calculation-cell" class="calculation cell cell-color flex-column">
+    <div id="hand-category">@GameService.GetHandCategoryName() <span id="hand-category-level">lvl. 1</span></div>
+    <div class="flex-row w-half">
+        <div class="colorbox blue-borderless-bg flex-3 bold">@GameService.GetHandScore()</div>
+        <div id="multiplier-x" class="flex-1">x</div>
+        <div class="colorbox red-borderless-bg flex-3 bold">@GameService.GetHandMultiplier()</div>
+    </div>
+</div>

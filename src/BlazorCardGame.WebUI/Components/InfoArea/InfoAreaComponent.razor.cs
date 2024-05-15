@@ -20,10 +20,10 @@ public partial class InfoAreaComponent : FluxorComponent
         GameService.NotifySubscribers -= StateHasChanged;
     }
 
-     private string GetInfoAreaColor()
+    public static string GetInfoAreaColor(Levels.Phase phase)
     {
         string baseClasses = "";
-        switch (GameService.GetPhase())
+        switch (phase)
         {
             case Levels.Phase.SMALL_BLIND:
                 return baseClasses + " blue";
@@ -36,10 +36,10 @@ public partial class InfoAreaComponent : FluxorComponent
         }
     }
 
-    private string GetInfoAreaBackgroundColor()
+    public static string GetInfoAreaBackgroundColor(Levels.Phase phase)
     {
         string baseClasses = "";
-        switch (GameService.GetPhase())
+        switch (phase)
         {
             case Levels.Phase.SMALL_BLIND:
                 return baseClasses + " lightblue-bg";
@@ -52,10 +52,10 @@ public partial class InfoAreaComponent : FluxorComponent
         }
     }
 
-    private string GetInfoAreaBorderColor()
+    public static string GetInfoAreaBorderColor(Levels.Phase phase)
     {
         string baseClasses = "";
-        switch (GameService.GetPhase())
+        switch (phase)
         {
             case Levels.Phase.SMALL_BLIND:
                 return baseClasses + " lightblue-border";
