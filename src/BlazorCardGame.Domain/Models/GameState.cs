@@ -106,6 +106,11 @@ namespace BlazorCardGame.Domain.Models
             HandsRemaining--;
         }
 
+        public void DecrementDiscardsRemaining()
+        {
+            DiscardsRemaining--;
+        }
+
         public long GetScoreToWin()
         {
             long baseAnte = Levels.baseAnteLevels[Ante];

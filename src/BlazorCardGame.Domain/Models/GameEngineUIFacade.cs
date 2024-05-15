@@ -110,7 +110,7 @@ namespace BlazorCardGame.Domain.Models
 
         public void DiscardHand()
         {
-            // GameEngine.ExecuteCommand(new DiscardHandCommand(GameEngine));
+            GameEngine.ExecuteCommand(new DiscardHandCommand(GameEngine));
             ChangeState();
         }
 
