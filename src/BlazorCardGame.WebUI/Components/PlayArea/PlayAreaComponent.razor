@@ -1,0 +1,35 @@
+@namespace BlazorCardGame.WebUI.Components.PlayArea
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@using BlazorCardGame.Domain.Models
+
+<div id="play-area">
+    <div class="flex-row flex-center">
+        <PoolWithCounter class="raised flex-3" CurrentCount=0 TotalCount=5>
+            <CardPoolComponent T=PlayingCard Cards=@(new List<PlayingCard>()) cardsSelectable=false />
+        </PoolWithCounter>
+        <PoolWithCounter class="raised flex-2" CurrentCount=0 TotalCount=2>
+            <CardPoolComponent T=PlayingCard Cards=@(new List<PlayingCard>()) cardsSelectable=false />
+        </PoolWithCounter>
+    </div>
+    <div id="play-discard-row">
+        <div class="flex-row flex-center w-3-4">
+            @if (GameService.IsPlayableHand()) {
+                <div class="colorbox blue-bg flex-1" @onclick=GameService.PlayHand>Play</div>
+                <div class="colorbox red-bg flex-1" @onclick=GameService.DiscardHand>Discard</div>
+            } else {
+                <div class="flex-2">Select some cards from your hand.</div>
+            }
+            <div class="flex-center flex-1">
+                <PoolWithCounter CurrentCount=@GameService.GetDeckRemainingCount() TotalCount=@GameService.GetDeckSize()>
+                    <DeckComponent DrawAllowed=true />
+                </PoolWithCounter>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <PoolWithCounter class="raised" CurrentCount=@GameService.GetHandCards().Count() TotalCount=@GameService.GetHandLimit()>
+            <CardPoolComponent T=BasePlayingCard Cards=@GameService.GetHandCards() cardsSelectable=true isHand=true/>
+        </PoolWithCounter>
+    </div>
+</div>

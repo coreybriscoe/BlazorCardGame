@@ -1,0 +1,14 @@
+/* Play Area styles */
+#play-area {
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+#play-discard-row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: auto;
+}
